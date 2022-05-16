@@ -1,0 +1,20 @@
+
+
+
+> composer create-project laravel/laravel:^8.0 example-app	<--CREAR EL PROYECTO LARAVEL 8
+
+> php artisan make:model Licencia -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+
+> php artisan make:controller Api/LicenciaController --api     	<--CREAR CONTROLADOR Y METODOS API
+  
+
+
+> php artisan migrate						<--MIGRAR BASE DE DATOS
+>
+> composer create-project laravel/laravel:^8.0 example-app	<--CREAR EL PROYECTO LARAVEL 8
+
+
+> php artisan route:list					<--VER MIS RUTAS DISPONIBLES
+
+> 
+> 
