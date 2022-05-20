@@ -1,0 +1,15 @@
+FUENTE VIDEO: https://youtu.be/jymr1hEvfkM
+DE JSON A DART:
+https://javiercbk.github.io/json_to_dart/
+
+{
+    "id": 1,
+    "justificacion": "justificacionkook",
+    "fecha": "2022-05-17",
+    "created_at": null,
+    "updated_at": null
+}
+
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"		<<--VERSION DEL VIDEO

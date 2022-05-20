@@ -1,20 +1,109 @@
 
-
+FUENTES DE AYUDA:
+https://laravel.com/docs/5.0/schema		<-- TYPO DE VAR EN MIGRAATIONS
+https://laravel.com/docs/8.x/migrations		<-- RELACIONES DE TABLAS
+https://laravel.com/docs/8.x/eloquent-relationships <--TIPO DE RACIONES
+https://bluuweb.github.io/tutorial-laravel/db-relacional/#restricciones-base-de-datos 
+======================================================================================================
 
 > composer create-project laravel/laravel:^8.0 example-app	<--CREAR EL PROYECTO LARAVEL 8
+
+> php artisan route:list					<--VER MIS RUTAS DISPONIBLES
+==========================================================================================================
+
+LICENCIA:
 
 > php artisan make:model Licencia -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
 
 > php artisan make:controller Api/LicenciaController --api     	<--CREAR CONTROLADOR Y METODOS API
   
+==========================================================================================================
+
+ESTUDIANTE:
+
+> php artisan make:model Estudiante -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+
+> php artisan make:controller Api/EstudianteController --api    <--CREAR CONTROLADOR Y METODOS API
+==========================================================================================================
+
+ASISTENCIA:
+
+> php artisan make:model Asistencia -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+
+> php artisan make:controller Api/AsistenciaController --api    <--CREAR CONTROLADOR Y METODOS API
 
 
+ ===============================================================================================================================================
 > php artisan migrate						<--MIGRAR BASE DE DATOS
->
-> composer create-project laravel/laravel:^8.0 example-app	<--CREAR EL PROYECTO LARAVEL 8
+===============================================================================================================================================
+
+PASO 3: 
+   -----------------------------------------------------------------------------------------------------------------------------------------------
+   - ESTRUCTURAMOS LAS MIGRACIONES DE LA TABLA CATEGORIA Y PRODUCTOS
+   -----------------------------------------------------------------------------------------------------------------------------------------------
+    public function up()
+    {
+         Schema::create('licencias', function (Blueprint $table) {
+            $table->id();
+            $table->string('justificacion');
+            $table->date('fecha');
+            $table->timestamps();
+        });
+    }
+
+    public function up()
+    {
+	Schema::create('estudiantes', function (Blueprint $table) {
+            $table->id();
+            $table->string('codigo_rude',15);
+            $table->string('cedula_identidad',10);
+            $table->string('nombre',30);
+            $table->string('apellido_paterno',30);
+            $table->string('apellido_materno',30);
+            $table->char('genero',1);
+            $table->date('fecha_nacimiento');
+             // Relacionando tablas capturando la llave primaria de licencia
+            $table->unsignedBigInteger('id_licencia');
+            $table->foreign('id_licencia')->references('id')->on('licencias');
+        });
+    }
+    
+    FUENTE:https://laravel.com/docs/7.x/migrations
+
+===============================================================================================================================================
+  -----------------------------------------------------------------------------------------------------------------------------------------------
+   - REGISTRAR DATOS DESDE LARAVEL A ESTDIANTES
+   -----------------------------------------------------------------------------------------------------------------------------------------------
+
+> php artisan make:seeder UserSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+
+> php artisan make:seeder LicenciaSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder AsistenciateSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder EstudianteSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL            
+    
+
+> php artisan db:seed --class=UserSeeder
+> php artisan db:seed --class=LicenciaSeeder
+> php artisan db:seed --class=AsistenciaSeeder
+> php artisan db:seed --class=EstudianteSeeder
 
 
-> php artisan route:list					<--VER MIS RUTAS DISPONIBLES
+> php artisan db:seed
 
-> 
-> 
+> php artisan migrate:fresh --seed
+
+> php artisan db:seed --class=LicenciaSeeder
+
+> php artisan db:seed --class=EstudianteSeeder
+
+> php artisan migrate:refresh			<--Para borrar todas las tablas de la base de datos y luego volverlas a crear:
+
+> php artisan migrate:reset			<--Para eliminar todas las tablas
+
+> php artisan migrate:rollback			<--Permite deshacer el último grupo de migraciones ejecutada
+
+> php artisan migrate:status				<--Para ver el estatus de cada migración
+
+> php artisan make:migration create_categories_table 	<--Para crear una migración
+
+
