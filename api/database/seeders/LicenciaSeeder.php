@@ -23,6 +23,7 @@ class LicenciaSeeder extends Seeder
             'justificacion' => 'Sin minguna licencia',
             'fecha' => $dt,
             'activo' => '0',
+            'id_estudiante' => 1
         ]);
     }
 }

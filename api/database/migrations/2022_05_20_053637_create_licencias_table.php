@@ -15,10 +15,13 @@ class CreateLicenciasTable extends Migration
     {
         Schema::create('licencias', function (Blueprint $table) {
             $table->id();
+       
             $table->string('justificacion');
             $table->date('fecha');
             $table->tinyInteger('activo')->default('1');
-            $table->timestamps();
+            // Relacionando tablas capturando la llave primaria de estudiante
+            $table->unsignedBigInteger('id_estudiante');
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes');
         });
     }
 

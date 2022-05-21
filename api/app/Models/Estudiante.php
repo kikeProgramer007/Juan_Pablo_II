@@ -16,20 +16,20 @@ class Estudiante extends Model
         'apellido_paterno',
         'apellido_materno',
         'genero',
-        'fecha_nacimiento',
-        'id_licencia',
-        'id_asistencia'
+        'fecha_nacimiento'
     ];
 
     public $timestamps = false;
 
-    public function licencia()
-    {
-        return $this->belongsTo(Licencia::class);
-    }
-    public function asistencia()
-    {
-        return $this->belongsTo(Asistencia::class);
-    }
+      // One To Many -Una Licencia puede tener uno o muchos estudiantes
+      public function licencias()
+      {
+        return $this->hasMany(Licencia::class);
+      }
+
+      public function asistencias()
+      {
+        return $this->hasMany(Asistencia::class);
+      }
 
 }

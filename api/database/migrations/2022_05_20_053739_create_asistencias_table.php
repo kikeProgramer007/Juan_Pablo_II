@@ -17,6 +17,9 @@ class CreateAsistenciasTable extends Migration
             $table->id();
             $table->string('estado',20);
             $table->tinyInteger('activo')->default('1');
+            $table->unsignedBigInteger('id_estudiante');
+            // Relacionando tablas estudiantes capturando la llave primaria de asistencias
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes');
         });
     }
 

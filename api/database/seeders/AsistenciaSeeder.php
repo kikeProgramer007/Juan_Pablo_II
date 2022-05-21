@@ -16,17 +16,20 @@ class AsistenciaSeeder extends Seeder
     {
         DB::table('asistencias')->insert([
             'id' => '1',
-            'estado' => 'Asiste'
+            'estado' => 'Asiste',
+            'id_estudiante' => 1
         ]);
 
         DB::table('asistencias')->insert([
             'id' => '2',
-            'estado' => 'Falta'
+            'estado' => 'Falta',
+            'id_estudiante' => 2
         ]);
 
         DB::table('asistencias')->insert([
             'id' => '3',
-            'estado' => 'Licencia'
+            'estado' => 'Licencia',
+            'id_estudiante' => 3
         ]);
 
     }

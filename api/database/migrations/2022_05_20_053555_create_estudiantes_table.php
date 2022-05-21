@@ -22,13 +22,6 @@ class CreateEstudiantesTable extends Migration
             $table->string('apellido_materno',30);
             $table->char('genero',1);
             $table->date('fecha_nacimiento');
-             // Relacionando tablas capturando la llave primaria de licencia
-            $table->unsignedBigInteger('id_licencia');
-            $table->unsignedBigInteger('id_asistencia');
- 
-            $table->foreign('id_licencia')->references('id')->on('licencias');
-            // Relacionando tablas asisencias capturando la llave primaria de licencia
-            $table->foreign('id_asistencia')->references('id')->on('asistencias');
         });
     }
 

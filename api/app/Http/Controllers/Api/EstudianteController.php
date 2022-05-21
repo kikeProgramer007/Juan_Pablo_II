@@ -24,6 +24,34 @@ class EstudianteController extends Controller
 
     public function store(Request $request)
     {
+       /* $validar = $request->validate([
+            'codigo_rude'=> 'required|numeric',
+            'cedula_identidad'=> 'required|numeric',
+            'nombre'=> 'required',
+            'apellido_paterno'=> 'required',
+            'apellido_materno'=> 'required',
+            'genero'=> 'required',
+            'fecha_nacimiento'=> 'required',
+            'id_licencia'=> 'required',
+            'id_asistencia'=> 'required',
+        ]);
+        try {
+            $fileName = time().$request->file('foto')->getClienteOriginalName();
+            $path = $request->file('foto')->storeAs('uploads/estudiantes',$fileName);
+            $validar['foto']=$path;
+            $response = Estudiante::created($validar);
+            return response()->json([
+                'success' => true,
+                'message' => 'success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'error',
+                'errors'=>$e->getMessage()
+            ]);
+        };*/
+
         $estudiante = new Estudiante();
         $estudiante->codigo_rude       = $request['codigo_rude'];
         $estudiante->cedula_identidad  = $request['cedula_identidad'];
@@ -32,10 +60,9 @@ class EstudianteController extends Controller
         $estudiante->apellido_materno  = $request['apellido_materno'];
         $estudiante->genero            = $request['genero'];
         $estudiante->fecha_nacimiento  = $request['fecha_nacimiento'];
-        $estudiante->id_licencia       = $request['id_licencia'];
-        $estudiante->id_asistencia     = $request['id_asistencia'];
         $estudiante->save();
     }
+
 
     public function show($id)
     {
@@ -46,6 +73,43 @@ class EstudianteController extends Controller
     public function update(Request $request, $id)
     {
 
+/*
+        $validar = $request->validate([
+            'codigo_rude'=> 'required|numeric',
+            'cedula_identidad'=> 'required|numeric',
+            'nombre'=> 'required',
+            'apellido_paterno'=> 'required',
+            'apellido_materno'=> 'required',
+            'genero'=> 'required',
+            'fecha_nacimiento'=> 'required',
+            'id_licencia'=> 'required',
+            'id_asistencia'=> 'required',
+        ]);
+        try {
+
+            if ($request->file('foto')) {
+                $fileName = time().$request->file('foto')->getClienteOriginalName();
+                $path = $request->file('foto')->storeAs('uploads/estudiantes',$fileName);
+                $validar['foto']=$path;
+            }
+
+            $response = Estudiante::findOrFail($id);
+            $response->update($validar);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'error',
+                'errors'=>$e->getMessage()
+            ]);
+        };*/
+
+
+
         $estudiante = Estudiante::findOrFail($id);
     
         $estudiante->codigo_rude       = $request['codigo_rude'];
@@ -55,8 +119,6 @@ class EstudianteController extends Controller
         $estudiante->apellido_materno  = $request['apellido_materno'];
         $estudiante->genero            = $request['genero'];
         $estudiante->fecha_nacimiento  = $request['fecha_nacimiento'];
-        $estudiante->id_licencia       = $request['id_licencia'];
-        $estudiante->id_asistencia     = $request['id_asistencia'];
 
         $estudiante->save();
         return $estudiante;
@@ -64,7 +126,22 @@ class EstudianteController extends Controller
 
     public function destroy($id)
     {
-        $estudiante = Estudiante::destroy($id);
-        return $estudiante;
+
+        try {
+            $estudiante = Estudiante::destroy($id);
+            return response()->json([
+                'success' => true,
+                'message' => 'success'
+            ]);
+
+        } catch (\Throwable $th) {
+           return response()->json([
+            'success' => false,
+            'message' => 'error',
+            'errors' => $th->getMessage()
+           ]);
+        }
+
+       
     }
 }

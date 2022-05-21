@@ -26,9 +26,7 @@ class EstudianteSeeder extends Seeder
             'apellido_paterno' => 'Condori',
             'apellido_materno' => 'Quispe',
             'genero' => 'M',
-            'fecha_nacimiento' => '1996-09-25',
-            'id_licencia' => 1,
-            'id_asistencia' => 1,
+            'fecha_nacimiento' => '1996-09-25'
         ]);
 
         DB::table('estudiantes')->insert([
@@ -38,9 +36,17 @@ class EstudianteSeeder extends Seeder
             'apellido_paterno' => 'Vaca',
             'apellido_materno' => 'Toro',
             'genero' => 'F',
-            'fecha_nacimiento' => '1999-09-25',
-            'id_licencia' => 1,
-            'id_asistencia' => 1,
+            'fecha_nacimiento' => '1999-09-25'
+        ]);
+
+        DB::table('estudiantes')->insert([
+            'codigo_rude' => '122131200123',
+            'cedula_identidad' => '21322122',
+            'nombre' => 'Felicitas',
+            'apellido_paterno' => 'Martinexz',
+            'apellido_materno' => 'Mendez',
+            'genero' => 'F',
+            'fecha_nacimiento' => '2009-09-01'
         ]);
 
     }

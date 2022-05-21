@@ -16,6 +16,7 @@ Route::controller(LicenciaController::class)->group(function (){
     Route::get('/licencias','index');
     Route::post('/licencia','store');
     Route::get('/licencia/{id}','show');
+    Route::post('/licencia/{id}','update');
     Route::put('/licencia/{id}','update');
     Route::delete('/licencia/{id}','destroy');
 });

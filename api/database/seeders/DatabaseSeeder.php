@@ -18,16 +18,16 @@ class DatabaseSeeder extends Seeder
         
         // \App\Models\User::factory(10)->create();
         $this->truncateTables([
+            'estudiantes',
             'licencias',
             'asistencias',
-            'estudiantes',
             'users',
         ]);
 
         $this->call([
+            EstudianteSeeder::class,
             LicenciaSeeder::class,
             AsistenciaSeeder::class,
-            EstudianteSeeder::class,
             UserSeeder::class
         ]);
     }

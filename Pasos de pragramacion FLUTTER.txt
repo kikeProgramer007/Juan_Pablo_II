@@ -1,7 +1,7 @@
 FUENTE VIDEO: https://youtu.be/jymr1hEvfkM
 DE JSON A DART:
 https://javiercbk.github.io/json_to_dart/
-
+VALIDAR LARAVEL 8:https://8bityard.com/how-to-validate-api-in-laravel/
 {
     "id": 1,
     "justificacion": "justificacionkook",
@@ -13,3 +13,30 @@ https://javiercbk.github.io/json_to_dart/
 
 environment:
   sdk: ">=2.12.0 <3.0.0"		<<--VERSION DEL VIDEO
+
+MI VERSION:
+Flutter (Channel stable, 2.10.5)
+
+==================== EERRROROROROR ===============
+
+  final  url = Uri.https(_baseUrl, 'products.json');//fucionando la base de datos Y haciendo la peticion
+    final resp = await http.post(url, body: product.toJson());  //POST(ENVIAR A FIREBASE) JSON HACIA LA API
+    final decodeData = json.decode(resp.body);//DECODIFICAR RESPUESTA(CONVERT A MAP)
+    
+    // print(decodeData);
+print(decodeData)
+
+
+
+Future<Post> fetchPost() async {
+  final response =
+      await http.get('https://jsonplaceholder.typicode.com/posts/1');
+
+  if (response.statusCode == 200) {
+    // Si el servidor devuelve una repuesta OK, parseamos el JSON
+    return Post.fromJson(json.decode(response.body));
+  } else {
+    // Si esta respuesta no fue OK, lanza un error.
+    throw Exception('Failed to load post');
+  }
+}

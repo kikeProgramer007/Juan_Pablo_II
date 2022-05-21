@@ -4,6 +4,9 @@ https://laravel.com/docs/5.0/schema		<-- TYPO DE VAR EN MIGRAATIONS
 https://laravel.com/docs/8.x/migrations		<-- RELACIONES DE TABLAS
 https://laravel.com/docs/8.x/eloquent-relationships <--TIPO DE RACIONES
 https://bluuweb.github.io/tutorial-laravel/db-relacional/#restricciones-base-de-datos 
+
+VALIDAR LARAVEL 8:https://8bityard.com/how-to-validate-api-in-laravel/
+G
 ======================================================================================================
 
 > composer create-project laravel/laravel:^8.0 example-app	<--CREAR EL PROYECTO LARAVEL 8
@@ -105,5 +108,69 @@ PASO 3:
 > php artisan migrate:status				<--Para ver el estatus de cada migración
 
 > php artisan make:migration create_categories_table 	<--Para crear una migración
+
+
+Actualizar Repositorio:
+
+
+> git status
+> git add .
+> git commit -m "descripcion de cambios"
+> gir push origin main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Schema::create('estudiantes', function (Blueprint $table) {
+            $table->id();
+            $table->string('codigo_rude',15)->unique();;
+            $table->string('cedula_identidad',10)->unique();
+            $table->string('nombre',30);
+            $table->string('apellido_paterno',30);
+            $table->string('apellido_materno',30);
+            $table->char('genero',1);
+            $table->date('fecha_nacimiento');
+        });
+
+
+        Schema::create('licencias', function (Blueprint $table) {
+            $table->id();
+            $table->string('justificacion');
+            $table->date('fecha');
+            $table->tinyInteger('activo')->default('1');
+            // Relacionando tablas capturando la llave primaria de estudiante
+            $table->unsignedBigInteger('id_estudiante');
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes');
+            $table->timestamps();
+
+
+
+        Schema::create('asistencias', function (Blueprint $table) {
+            $table->id();
+            $table->string('estado',20);
+            $table->tinyInteger('activo')->default('1');
+            $table->unsignedBigInteger('id_estudiante');
+            // Relacionando tablas estudiantes capturando la llave primaria de asistencias
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes');
+        });
+
+
+
 
 

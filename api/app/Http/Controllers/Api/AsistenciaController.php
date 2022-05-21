@@ -19,6 +19,7 @@ class AsistenciaController extends Controller
     {
         $asistencia = new Asistencia();
         $asistencia->estado = $request->estado;
+        $asistencia->id_estudiante = $request->id_estudiante;
 
         $asistencia->save();
     }
@@ -33,6 +34,7 @@ class AsistenciaController extends Controller
     {
         $asistencia = Asistencia::findOrFail($id);
         $asistencia->estado = $request->estado;
+        $asistencia->id_estudiante = $request->id_estudiante;
 
         $asistencia->save();
         return $asistencia;

@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Asistencia extends Model
 {
     use HasFactory;
-    protected $fillable = ['estado'];
+    protected $fillable = ['estado','id_estudiante'];
 
     public $timestamps = false;
 
+
+
     public function estudiantes()
     {
-      return $this->hasMany(Estudiante::class);
+        return $this->belongsTo(Estudiante::class);
     }
 }
