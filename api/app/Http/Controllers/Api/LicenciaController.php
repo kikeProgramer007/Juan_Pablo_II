@@ -23,6 +23,7 @@ class LicenciaController extends Controller
     {
 
         $rules=array(
+            'asunto'  =>"required|min:2|max:50",
             'justificacion'  =>"required|min:2|max:150",
             'fecha' =>"required|min:5|max:150",
             'id_estudiante' =>"required",
@@ -38,6 +39,7 @@ class LicenciaController extends Controller
         }
         else{
         $data = new Licencia();
+        $data->asunto = $request->asunto;
         $data->justificacion = $request->justificacion;
         $data->fecha = $request->fecha;
         $data->id_estudiante = $request->id_estudiante;
@@ -104,6 +106,7 @@ class LicenciaController extends Controller
         }
         else{
         $data = Licencia::findOrFail($id);
+        $data->asunto = $request->asunto;
         $data->justificacion = $request->justificacion;
         $data->fecha = $request->fecha;
         $data->id_estudiante = $request->id_estudiante;

@@ -19,7 +19,7 @@ class InputLicencia extends StatefulWidget {
 
 class _InputLicenciaState extends State<InputLicencia> {
   final _formkey = GlobalKey<FormState>();
-  late TextEditingController justificacion, fecha;
+  late TextEditingController asunto,justificacion, fecha;
   late List<Estudiante> _estudiantefk = [];
   late int idEstudiante = 0;
   late int idLicen = 0;
@@ -27,7 +27,7 @@ class _InputLicenciaState extends State<InputLicencia> {
   // ignore: unused_field
   bool _validate = false;
   bool _success = false;
-  late String _activo = '0';
+ // late String _activo = '0';
   late ErrorMSG response;
 
   void getEstudiant() async {
@@ -42,9 +42,10 @@ void submit() async {
   if (_formkey.currentState!.validate()) {
     _formkey.currentState!.save();
     var params ={
+      'asunto' : asunto.text.toString(),
       'justificacion' : justificacion.text.toString(),
       'fecha' : fecha.text.toString(),
-      'activo' : _activo,
+      //'activo' : _activo,
       'id_estudiante' : idEstudiante.toString(),
     };
     response = await ApiStatic.saveLicencia(idLicen, params);
@@ -63,16 +64,18 @@ void submit() async {
 
 @override
   void initState() {
+    asunto= TextEditingController();
     justificacion= TextEditingController();
     fecha = TextEditingController();
     getEstudiant();
 
     if(widget.licencia.idEstudiante != 0){
        idLicen = widget.licencia.id;
+       asunto= TextEditingController(text: widget.licencia.asunto);
        justificacion= TextEditingController(text: widget.licencia.justificacion);
        fecha = TextEditingController(text: widget.licencia.fecha);
        idEstudiante = widget.licencia.idEstudiante;
-       _activo = widget.licencia.activo.toString();
+       //_activo = widget.licencia.activo.toString();
        _isupdate = true;
     }
     super.initState();
@@ -92,6 +95,19 @@ void submit() async {
             key: _formkey,
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: TextFormField(
+                    controller: asunto,
+                    validator: (u) => u == "" ? "Por favor, ingrese el asunto" :null,
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.perm_identity),
+                      hintText: 'Coloque su asunto',
+                      labelText: 'Asunto',
+                    ),
+                  ),
+                ),
+                
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
@@ -142,7 +158,7 @@ void submit() async {
                   ),
                 ),
           
-                Padding(
+             /*  Padding(
                   padding: const EdgeInsets.only(bottom: 10, left: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -174,8 +190,7 @@ void submit() async {
                       )
                     ],
                   ),
-                
-                ),
+                ),*/
           
                 const Divider(),
                 SizedBox(
@@ -185,7 +200,7 @@ void submit() async {
                   child: RaisedButton(
                     color: Colors.green,
                     child: const Text(
-                      'Simpa',
+                      'Guardar',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: (){

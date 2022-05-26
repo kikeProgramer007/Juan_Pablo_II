@@ -18,7 +18,7 @@ class _DetalleLicenciaPageState extends State<DetalleLicenciaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.licencia.activo.toString()),
+        title: Text(widget.licencia.asunto.toString()),
       ),
 
       body: SizedBox(
@@ -35,7 +35,19 @@ class _DetalleLicenciaPageState extends State<DetalleLicenciaPage> {
                   colors: [ Color(0xff3164bd),  Color (0xff295cb5)],
                 ),
               ),
-              child: Text(widget.licencia.justificacion, style: const TextStyle(color: Colors.white),),
+              child: Text(widget.licencia.asunto, style: const TextStyle(color: Colors.white),),
+            ),
+
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: const  BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [ Color.fromARGB(255, 238, 238, 238),  Color.fromARGB(255, 204, 205, 207)],
+                ),
+              ),
+              child: Text(widget.licencia.justificacion, style: const TextStyle(color: Colors.black),),
             ),
 
             Container(

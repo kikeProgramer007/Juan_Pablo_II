@@ -15,7 +15,7 @@ class CreateLicenciasTable extends Migration
     {
         Schema::create('licencias', function (Blueprint $table) {
             $table->id();
-       
+            $table->string('asunto');
             $table->string('justificacion');
             $table->date('fecha');
             $table->tinyInteger('activo')->default('1');

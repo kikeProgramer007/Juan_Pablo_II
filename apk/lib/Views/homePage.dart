@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
       ),
 
       body: const Center(
-        child: Text('Home PAge'),
+        child: Text('BIENVENIDO'),
       ),
       //BOTONES FOOTER
       bottomNavigationBar: buildBottomBar(0, context)

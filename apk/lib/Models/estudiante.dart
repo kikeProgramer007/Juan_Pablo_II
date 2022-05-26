@@ -21,7 +21,6 @@ class Estudiante {
     String genero;
     String fechaNacimiento;
 
-
     factory Estudiante.fromJson(Map<String, dynamic> json) => Estudiante(
         id: json["id"],
         codigoRude: json["codigo_rude"],

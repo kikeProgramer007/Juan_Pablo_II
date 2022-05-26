@@ -31,7 +31,7 @@ class _LicenciaPageState extends State<LicenciaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  AppBar(
-        title: const Text('licencia'),
+        title: const Text('Licencia'),
       ),
 
       floatingActionButton: FloatingActionButton(
@@ -39,6 +39,7 @@ class _LicenciaPageState extends State<LicenciaPage> {
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => InputLicencia(licencia: Licencia(
             id: 0,
+            asunto: '',
             justificacion: '',
             fecha: '',
             activo: 0,
@@ -86,7 +87,7 @@ class _LicenciaPageState extends State<LicenciaPage> {
                                    crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                       
-                                    Text(listLicencia[index].justificacion,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+                                    Text(listLicencia[index].asunto,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
                                     Text(listLicencia[index].fecha.toString(), style: const TextStyle(fontSize: 12)),
                                   ],
                                 ),

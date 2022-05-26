@@ -72,9 +72,10 @@ class ApiStatic {
         //print(url); print(method);
        
         var request = http.MultipartRequest(method, url);
+        request.fields['asunto'] = licencia['asunto'];
         request.fields['justificacion'] = licencia['justificacion'];
         request.fields['fecha'] = licencia['fecha'];
-        request.fields['activo'] = licencia['activo'];
+       // request.fields['activo'] = licencia['activo'];
         request.fields['id_estudiante'] = licencia['id_estudiante'];
         request.headers.addAll({
           'Authorization' : 'Bearer '+_token,
