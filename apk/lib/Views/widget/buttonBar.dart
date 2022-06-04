@@ -1,5 +1,7 @@
 
 // ignore_for_file: file_names
+import 'package:apk/Views/estudiante/estudiante_page.dart';
+import 'package:apk/Views/notas/input_nota.dart';
 import 'package:flutter/material.dart';
 
 import 'package:apk/Views/licencia/licenciaPage.dart';
@@ -21,12 +23,17 @@ Widget buildBottomBar(index, BuildContext context){
               break;
            case 1:
               Navigator.of(context).pushReplacement( MaterialPageRoute(
-                builder: (BuildContext context) => const HomePage()//REDIRECIONAR
+                builder: (BuildContext context) => const EstudiantePage()//REDIRECIONAR
                 ));
               break;
             case 2:
               Navigator.of(context).pushReplacement( MaterialPageRoute(
                 builder: (BuildContext context) => const LicenciaPage()//REDIRECIONARkkckc
+                ));
+              break;
+            case 3:
+              Navigator.of(context).pushReplacement( MaterialPageRoute(
+                builder: (BuildContext context) =>  InputNota()//REDIRECIONARkkckc
                 ));
               break;
             default:
@@ -36,6 +43,7 @@ Widget buildBottomBar(index, BuildContext context){
             BottomNavigationBarItem(icon: Icon (Icons.home),label: 'Home'),
             BottomNavigationBarItem(icon: Icon (Icons.supervised_user_circle), label: 'Estudiante'),
             BottomNavigationBarItem(icon: Icon (Icons.card_membership_outlined), label: 'Licencia'),
+            BottomNavigationBarItem(icon: Icon (Icons.card_membership_outlined), label: 'Notas'),
         ],
       );
 

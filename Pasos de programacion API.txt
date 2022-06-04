@@ -13,130 +13,66 @@ G
 
 > php artisan route:list					<--VER MIS RUTAS DISPONIBLES
 ==========================================================================================================
+				    CREAR MIGRACIONES Y CONTROLLER EN API
+==========================================================================================================
+==========================================================================================================
+
+CURSO:
+> php artisan make:model Curso -m     				<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/CursoController --api    	<--CREAR CONTROLADOR Y METODOS API
+==========================================================================================================
+
+MATERIA:
+> php artisan make:model Materia -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/MateriaController --api    <--CREAR CONTROLADOR Y METODOS API
+
+==========================================================================================================
+
+ESTUDIANTE:
+> php artisan make:model Estudiante -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/EstudianteController --api    <--CREAR CONTROLADOR Y METODOS API
+==========================================================================================================
+
+CURSO_ESTUDIANTE (TERCERA TABLA ENTRE CURSO-ESTUDIANTE):
+> php artisan make:migration create_curso_estudiante_table 	<--Para crear una migración
+> php artisan make:model Lista -m     				<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/ListaController --api    	<--CREAR CONTROLADOR Y METODOS API
+==========================================================================================================
+
+ESTUDIANTE_MATERIA (TERCERA TABLA ENTRE ESTUDIANTE-MATERIA):
+> php artisan make:migration create_estudiante_materia_table 		<--Para crear una migración
+> php artisan make:model EstudianteMateria	 			<--CREAR MODELO PARA TABLA
+> php artisan make:controller Api/EstudianteMateriaController --api    	<--CREAR CONTROLADOR Y METODOS API
+==========================================================================================================
+
+NOTA (TERCERA TABLA ENTRE MATERIA-ESTUDIANTE):
+> php artisan make:model Nota -m     				<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/NotaController --api    	<--CREAR CONTROLADOR Y METODOS API
+==========================================================================================================
 
 LICENCIA:
-
 > php artisan make:model Licencia -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
-
 > php artisan make:controller Api/LicenciaController --api     	<--CREAR CONTROLADOR Y METODOS API
   
 ==========================================================================================================
 
-ESTUDIANTE:
-
-> php artisan make:model Estudiante -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
-
-> php artisan make:controller Api/EstudianteController --api    <--CREAR CONTROLADOR Y METODOS API
+ASISTENCIA:
+> php artisan make:model Asistencia -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/AsistenciaController --api    <--CREAR CONTROLADOR Y METODOS API
 ==========================================================================================================
 
-ASISTENCIA:
-
-> php artisan make:model Asistencia -m     			<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
-
-> php artisan make:controller Api/AsistenciaController --api    <--CREAR CONTROLADOR Y METODOS API
 
 
  ===============================================================================================================================================
 > php artisan migrate						<--MIGRAR BASE DE DATOS
 ===============================================================================================================================================
-
+==========================================================================================================
+				   ESTRUCTURAMOS LAS MIGRACIONES DE LA TABLAS
+==========================================================================================================
 PASO 3: 
    -----------------------------------------------------------------------------------------------------------------------------------------------
    - ESTRUCTURAMOS LAS MIGRACIONES DE LA TABLA CATEGORIA Y PRODUCTOS
    -----------------------------------------------------------------------------------------------------------------------------------------------
-    public function up()
-    {
-         Schema::create('licencias', function (Blueprint $table) {
-            $table->id();
-            $table->string('justificacion');
-            $table->date('fecha');
-            $table->timestamps();
-        });
-    }
-
-    public function up()
-    {
-	Schema::create('estudiantes', function (Blueprint $table) {
-            $table->id();
-            $table->string('codigo_rude',15);
-            $table->string('cedula_identidad',10);
-            $table->string('nombre',30);
-            $table->string('apellido_paterno',30);
-            $table->string('apellido_materno',30);
-            $table->char('genero',1);
-            $table->date('fecha_nacimiento');
-             // Relacionando tablas capturando la llave primaria de licencia
-            $table->unsignedBigInteger('id_licencia');
-            $table->foreign('id_licencia')->references('id')->on('licencias');
-        });
-    }
-    
-    FUENTE:https://laravel.com/docs/7.x/migrations
-
-===============================================================================================================================================
-  -----------------------------------------------------------------------------------------------------------------------------------------------
-   - REGISTRAR DATOS DESDE LARAVEL A ESTDIANTES
-   -----------------------------------------------------------------------------------------------------------------------------------------------
-
-> php artisan make:seeder UserSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
-
-> php artisan make:seeder LicenciaSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
-> php artisan make:seeder AsistenciateSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
-> php artisan make:seeder EstudianteSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL            
-    
-
-> php artisan db:seed --class=UserSeeder
-> php artisan db:seed --class=LicenciaSeeder
-> php artisan db:seed --class=AsistenciaSeeder
-> php artisan db:seed --class=EstudianteSeeder
-
-
-> php artisan db:seed
-
-> php artisan migrate:fresh --seed
-
-> php artisan db:seed --class=LicenciaSeeder
-
-> php artisan db:seed --class=EstudianteSeeder
-
-> php artisan migrate:refresh			<--Para borrar todas las tablas de la base de datos y luego volverlas a crear:
-
-> php artisan migrate:reset			<--Para eliminar todas las tablas
-
-> php artisan migrate:rollback			<--Permite deshacer el último grupo de migraciones ejecutada
-
-> php artisan migrate:status				<--Para ver el estatus de cada migración
-
-> php artisan make:migration create_categories_table 	<--Para crear una migración
-
-
-Actualizar Repositorio:
-
-
-> git status
-> git add .
-> git commit -m "descripcion de cambios"
-> gir push origin main
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         Schema::create('estudiantes', function (Blueprint $table) {
             $table->id();
             $table->string('codigo_rude',15)->unique();;
@@ -166,9 +102,194 @@ Actualizar Repositorio:
             $table->string('estado',20);
             $table->tinyInteger('activo')->default('1');
             $table->unsignedBigInteger('id_estudiante');
+            $table->unsignedBigInteger('id_licencia')->unique()->nullable();//EL NULLABLE ACEPTA VALORES NULOS
             // Relacionando tablas estudiantes capturando la llave primaria de asistencias
             $table->foreign('id_estudiante')->references('id')->on('estudiantes');
+            //RELACION DE UNO A UNO ENTRE LICENCIA Y ASISTENCIA(ROBA ID)
+            $table->foreign('id_licencia')->references('id')->on('licencias')->onDelete('set null')->onUpdate('cascade');
         });
+    
+
+
+
+
+
+    FUENTE:https://laravel.com/docs/7.x/migrations
+
+===============================================================================================================================================
+  -----------------------------------------------------------------------------------------------------------------------------------------------
+   - REGISTRAR DATOS DESDE LARAVEL A ESTDIANTES
+   -----------------------------------------------------------------------------------------------------------------------------------------------
+
+> php artisan make:seeder UserSeeder				<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+
+> php artisan make:seeder CursoSeeder				<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder MateriaSeeder				<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder EstudianteSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL 
+> php artisan make:seeder CursoEstudianteSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder EstudianteMateriaSeeder		<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder LicenciaSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder AsistenciaSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+
+
+           
+    
+> php artisan db:seed --class=UserSeeder
+> php artisan db:seed --class=LicenciaSeeder
+> php artisan db:seed --class=AsistenciaSeeder
+> php artisan db:seed --class=EstudianteSeeder
+
+ ===============================================================================================================================================
+> php artisan migrate --seed					<--MIGRAR BASE DE DATOS
+===============================================================================================================================================
+
+> php artisan make:model Categoria -mcsf   	<-- CREAR MODELO, MIGRACION, SEEDER Y FACTORY 
+> php artisan make:model Categoria -mcs   	<-- CREAR MODELO, MIGRACION Y SEEDER
+> php artisan make:model Categoria -a		<-- CREAR MODELO, MIGRACION, SEEDER Y FACTORY, TODO COMPLETO
+
+
+> php artisan db:seed
+
+> php artisan migrate:fresh --seed
+
+> php artisan db:seed --class=LicenciaSeeder
+
+> php artisan db:seed --class=EstudianteSeeder
+
+> php artisan migrate:refresh			<--Para borrar todas las tablas de la base de datos y luego volverlas a crear:
+
+> php artisan migrate:reset			<--Para eliminar todas las tablas
+
+> php artisan migrate:rollback			<--Permite deshacer el último grupo de migraciones ejecutada
+
+> php artisan migrate:status				<--Para ver el estatus de cada migración
+
+> php artisan make:migration create_categories_table 	<--Para crear una migración
+> php artisan make:migration create_estudiante_materia_table 	<--Para crear una migración
+
+
+==========================================================================================================
+				   CONSULTAS A LA BASE DE DATOS
+==========================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MOSTRAR LAS NOTAS DE CADA MATERIA DE UN ESTUDIANTE INGRESANDO EL RUDE:
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT e.nombre, e.apellido_paterno, apellido_materno, m.nombre_materia, em.nota_primer_bimestre, em.nota_segundo_bimestre, em.nota_tercer_bimestre, em.nota_cuarto_bimestre, em.promedio_anual 
+FROM estudiantes e
+	JOIN estudiante_materia em ON e.id = em.id_estudiante
+	JOIN materias m ON em.id_materia = m.id
+WHERE e.codigo_rude = '1234'
+ORDER BY em.promedio_anual DESC
+
+SELECT e.nombre, e.apellido_paterno, apellido_materno, m.nombre_materia, em.nota_primer_bimestre, em.nota_segundo_bimestre, em.nota_tercer_bimestre, em.nota_cuarto_bimestre, em.promedio_anual 
+FROM estudiante_materia em 
+	JOIN  estudiantes e ON em.id_estudiante = e.id
+	JOIN materias m ON em.id_materia = m.id
+WHERE e.codigo_rude = '1234'
+ORDER BY em.promedio_anual DESC
+
+   $this->select('COUNT(dv.id_producto) AS cant_ventas,dv.id_producto,SUM(dv.cantidad) AS cantidad,p.nombre,p.capacidad');
+   $this->from('ventas');
+   $this->join('detalle_venta AS dv','ventas.id = dv.id_venta ');
+   $this->join('productos AS p','p.id=dv.id_producto');
+   $where = "MONTH(ventas.fecha_alta)='$mes' AND YEAR(ventas.fecha_alta) ='$anio' AND ventas.activo = 1";
+   $this->where($where);
+   $this->groupby('dv.id_producto,p.nombre,p.capacidad');
+   $this->orderBy('SUM(dv.cantidad)','DESC');
+   $datos = $this->Limit(5);
+   return $datos;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MOSTRAR LAS MATERIAS QUE ESTA LLEVANDO UN ESTUDIANTE:
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT m.nombre_materia, em.promedio_anual 
+FROM estudiantes e
+	JOIN estudiante_materia em ON e.id = em.id_estudiante
+	JOIN materias m ON em.id_materia = m.id
+WHERE e.nombre = 'Enrique' AND e.apellido_paterno= 'Condori' AND e.apellido_materno = 'Quispe'
+ORDER BY m.nombre_materia ASC
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MOSTRAR LAS NOTAS DE CADA MATERIA DE UN ESTUDIANTE SEGUN RUDE Y GESTION:
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT m.nombre_materia, em.nota_primer_bimestre, em.nota_segundo_bimestre, em.nota_tercer_bimestre, em.nota_cuarto_bimestre, em.promedio_anual ,c.grado,c.nivel,c.grupo, ce.gestion
+FROM estudiantes e
+	JOIN estudiante_materia em ON e.id = em.id_estudiante
+	JOIN materias m ON em.id_materia = m.id
+	JOIN curso_estudiante ce ON e.id= ce.id_estudiante
+	JOIN cursos c ON ce.id_curso = c.id
+WHERE e.codigo_rude = '1234'
+AND ce.gestion = '2022'
+ORDER BY em.promedio_anual DESC
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MOSTRAR LAS NOTAS DE CADA MATERIA DE UN ESTUDIANTE SEGUN RUDE y CURSO:
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SELECT m.nombre_materia, em.nota_primer_bimestre, em.nota_segundo_bimestre, em.nota_tercer_bimestre, em.nota_cuarto_bimestre, em.promedio_anual ,c.grado,c.nivel,c.grupo, ce.gestion
+FROM estudiantes e
+	JOIN estudiante_materia em ON e.id = em.id_estudiante
+	JOIN materias m ON em.id_materia = m.id
+	JOIN curso_estudiante ce ON e.id= ce.id_estudiante
+	JOIN cursos c ON ce.id_curso = c.id
+WHERE e.codigo_rude = '1234'
+AND ce.gestion = '2022'
+ORDER BY em.promedio_anual DESC
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MOSTRAR LA CANTIDAD DE ALUMNOS EN UN CURSO
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MOSTRAR LAS MOSTRAR LAS FALTAS Y FECHA DE UN ALUMNO INGRESANDO EL RUDE
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// MOSTRAR LAS NOTAS DE UN
+
+
+
+
+
+
+
+
+
+
+
+Actualizar Repositorio:
+
+
+> git status
+> git add .
+> git commit -m "descripcion de cambios"
+> gir push origin main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

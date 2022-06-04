@@ -33,21 +33,7 @@ class _LicenciaPageState extends State<LicenciaPage> {
       appBar:  AppBar(
         title: const Text('Licencia'),
       ),
-
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => InputLicencia(licencia: Licencia(
-            id: 0,
-            asunto: '',
-            justificacion: '',
-            fecha: '',
-            activo: 0,
-            idEstudiante: 0,
-          ))));
-        },
-      ),
-
+      
       body: FutureBuilder<List<Licencia>>(
           future: ApiStatic.getLicencia(),
           builder: (context, snapshot){
@@ -123,6 +109,21 @@ class _LicenciaPageState extends State<LicenciaPage> {
               );
             }
           },
+      ),
+
+
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => InputLicencia(licencia: Licencia(
+            id: 0,
+            asunto: '',
+            justificacion: '',
+            fecha: '',
+            activo: 0,
+            idEstudiante: 0,
+          ))));
+        },
       ),
 
     //BOTONES FOOTER

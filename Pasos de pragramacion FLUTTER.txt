@@ -1,6 +1,8 @@
 FUENTE VIDEO: https://youtu.be/jymr1hEvfkM
 DE JSON A DART:
 https://javiercbk.github.io/json_to_dart/
+https://app.quicktype.io/
+
 VALIDAR LARAVEL 8:https://8bityard.com/how-to-validate-api-in-laravel/
 {
     "id": 1,
@@ -40,3 +42,23 @@ Future<Post> fetchPost() async {
     throw Exception('Failed to load post');
   }
 }
+
+TEMA:
+wifi 6
+
+viernes hasta las 5 de la tarde.
+debate
+
+WILLY DANIEL SALAZAR PRADO.
+PONDE:
+10 PARTICIPACION EN CLASE
+10 EXPOSICION
+20 TRABAJO FINAL
+60 VARIOS PARCIALES
+
+
+¡??¿¡¡¿¿¡¡¡¡¡
+
+que es una innovacion radicales
+
+

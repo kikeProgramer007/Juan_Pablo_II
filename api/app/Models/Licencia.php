@@ -14,5 +14,10 @@ class Licencia extends Model
       {
           return $this->belongsTo(Estudiante::class);
       }
-      
+    
+    //UNO A UNO PARA USAR DATOS DE ASISTENCIA
+    public function asistencia()
+    {
+        return $this->hasOne(Asistencia::class);
+    }
 }

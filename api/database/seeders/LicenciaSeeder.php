@@ -21,10 +21,10 @@ class LicenciaSeeder extends Seeder
         DB::table('licencias')->insert([
             'id' => '1',
             'asunto' => 'Enfermedad',
-            'justificacion' => 'Sin minguna licencia',
+            'justificacion' => 'Sin ninguna licencia',
             'fecha' => $dt,
             'activo' => '0',
-            'id_estudiante' => 1
+            'id_estudiante' => 3
         ]);
     }
 }
