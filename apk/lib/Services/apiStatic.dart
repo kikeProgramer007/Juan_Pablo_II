@@ -2,6 +2,7 @@
 
 
 import 'dart:convert';
+import 'package:apk/Models/cursoestudiante.dart';
 import 'package:apk/Models/notas.dart';
 import 'package:http/http.dart'as http;
 
@@ -17,11 +18,9 @@ class ApiStatic {
     return host;
   }
 
-
-
     static Future<List<Licencia>> getLicencia() async {
     try {
-      final response = await http.get(Uri.parse("$host/api/licencias"),
+      final response = await http.get(Uri.parse("$host/api/licencia"),
       headers: {'Authorization' : 'Bearer '+_token},
       );
       if (response.statusCode == 200) {//si hay respuesta
@@ -34,19 +33,18 @@ class ApiStatic {
     } catch (e) {
       return [];
     }
-
   }
 
   static Future<List<Estudiante>> getEstudianteFk() async {
 
     try {
-        final response = await http.get(Uri.parse("$host/api/estudiantes"),
+        final response = await http.get(Uri.parse("$host/api/estudiante"),
         headers: {'Authorization' : 'Bearer '+_token},
         );
         if (response.statusCode == 200) {//si hay respuesta
           var json = jsonDecode(response.body);
           //final parsed = json.cast<Map<String, dynamic>>();
-          final parsed = json['data'].cast<Map<String, dynamic>>();
+          final parsed = json.cast<Map<String, dynamic>>();
           //print(response.statusCode);
           return parsed.map<Estudiante>((json) =>Estudiante.fromJson(json)).toList();
         }else{
@@ -121,11 +119,11 @@ class ApiStatic {
     //String response = '{"current_page":1,"data":[{"id":1,"codigo_rude":"12123123321","cedula_identidad":"12321312","nombre":"Enrique","apellido_paterno":"Condori","apellido_materno":"Quispe","genero":"M","fecha_nacimiento":"1996-09-25","id_licencia":1,"id_asistencia":1},{"id":2,"codigo_rude":"12213123123","cedula_identidad":"123212","nombre":"Ana","apellido_paterno":"Vaca","apellido_materno":"Toro","genero":"F","fecha_nacimiento":"1999-09-25","id_licencia":1,"id_asistencia":1}],"first_page_url":"http:\/\/192.168.0.15\/juanpabloii\/api\/public\/api\/estudiantes?page=1","from":1,"last_page":1,"last_page_url":"http:\/\/192.168.0.15\/juanpabloii\/api\/public\/api\/estudiantes?page=1","links":[{"url":null,"label":"&laquo; Previous","active":false},{"url":"http:\/\/192.168.0.15\/juanpabloii\/api\/public\/api\/estudiantes?page=1","label":"1","active":true},{"url":null,"label":"Next &raquo;","active":false}],"next_page_url":null,"path":"http:\/\/192.168.0.15\/juanpabloii\/api\/public\/api\/estudiantes","per_page":10,"prev_page_url":null,"to":2,"total":2}';
 
     try {
-      final response = await http.get(Uri.parse("$host/api/estudiantes"));
+      final response = await http.get(Uri.parse("$host/api/estudiante"));
       
       if (response.statusCode == 200) {//si hay respuesta
         var json = jsonDecode(response.body);
-        final parsed = json['data'].cast<Map<String, dynamic>>();
+        final parsed = json.cast<Map<String, dynamic>>();
 
         return parsed.map<Estudiante>((json) =>Estudiante.fromJson(json)).toList();
       }else{
@@ -138,16 +136,12 @@ class ApiStatic {
 
   }
 
-
-
-
-
     //FUNCION PARA TRAER LAS NOTAS SEGUN EL RUDE
     static Future<List<Notas>> consultanotas(rude) async{
       try {
-          final response = await http.get(Uri.parse("$host/api/nota/"+rude.toString()),
-          headers: {'Authorization' : 'Bearer '+_token},
-          );
+            final response = await http.get(Uri.parse("$host/api/nota/"+rude.toString()),
+              headers: {'Authorization' : 'Bearer '+_token},
+            );
           if (response.statusCode == 200) {//si hay respuesta
             var json = jsonDecode(response.body);
             final parse = json['data'].cast<Map<String, dynamic>>();
@@ -155,6 +149,26 @@ class ApiStatic {
           }else{
             return [];
           }
+        
+      } catch (e) {
+        return [];
+      }
+    }
+
+    //FUNCION PARA TRAER LAS NOTAS SEGUN EL RUDE
+    static Future<List<Cursoestudiante>> estudianteseguncurso(grado, nivel) async{
+      try {
+            final response = await http.get(Uri.parse("$host/api/cursoestudiante/"+grado.toString()+'/'+nivel.toString()),
+              headers: {'Authorization' : 'Bearer '+_token},
+            );
+          if (response.statusCode == 200) {//si hay respuesta
+            var json = jsonDecode(response.body);
+            final parse = json.cast<Map<String, dynamic>>();
+            return parse.map<Cursoestudiante>((json) =>Cursoestudiante.fromJson(json)).toList();
+          }else{
+            return [];
+          }
+        
       } catch (e) {
         return [];
       }

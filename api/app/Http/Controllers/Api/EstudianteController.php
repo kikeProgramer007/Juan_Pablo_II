@@ -12,14 +12,15 @@ class EstudianteController extends Controller
 {
 
     public function index()
-    {
-        $estudiante = Estudiante::all();
-        // $estudiante = Estudiante::getEstudiante->paginate(10);
-        $estudiante = Estudiante::paginate(10);
-        // $estudiante['mensaje'] ='suucess';
-
-        // return $estudiante;
-        return response()->json($estudiante);
+    {   //$results = Project::all()->sortBy("name"); ASCENDENTE
+        //$results = Project::all()->sortByDesc("name"); DESENDENTE
+        // $data['data']=  Estudiante::orderBy('apellido_paterno','asc')->get();
+        
+        $data = Estudiante::orderBy('apellido_paterno','asc')->get();
+   
+        // return response()->json($data, 200, []);
+         return response()->json($data);
+   
     }
 
     public function store(Request $request)
@@ -107,8 +108,6 @@ class EstudianteController extends Controller
                 'errors'=>$e->getMessage()
             ]);
         };*/
-
-
 
         $estudiante = Estudiante::findOrFail($id);
     

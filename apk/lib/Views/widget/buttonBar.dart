@@ -1,7 +1,8 @@
 
 // ignore_for_file: file_names
-import 'package:apk/Views/estudiante/estudiante_page.dart';
+import 'package:apk/Views/estudiante/cursos_page.dart';
 import 'package:apk/Views/notas/input_nota.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:apk/Views/licencia/licenciaPage.dart';
@@ -23,7 +24,7 @@ Widget buildBottomBar(index, BuildContext context){
               break;
            case 1:
               Navigator.of(context).pushReplacement( MaterialPageRoute(
-                builder: (BuildContext context) => const EstudiantePage()//REDIRECIONAR
+                builder: (BuildContext context) => const CursosPage()//REDIRECIONAR
                 ));
               break;
             case 2:
@@ -33,7 +34,7 @@ Widget buildBottomBar(index, BuildContext context){
               break;
             case 3:
               Navigator.of(context).pushReplacement( MaterialPageRoute(
-                builder: (BuildContext context) =>  InputNota()//REDIRECIONARkkckc
+                builder: (BuildContext context) =>  const InputNota()//REDIRECIONARkkckc
                 ));
               break;
             default:

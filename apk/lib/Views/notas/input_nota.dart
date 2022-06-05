@@ -1,9 +1,11 @@
 
+import 'package:apk/Views/notas/nota_page.dart';
 import 'package:apk/Views/widget/buttonBar.dart';
 import 'package:flutter/material.dart';
 
 
 class InputNota extends StatefulWidget {
+   
   const InputNota({Key? key}) : super(key: key);
  
   @override
@@ -16,9 +18,24 @@ class _InputNotaState extends State<InputNota> {
 
 @override
   void initState() {
-    rude= TextEditingController();
+    rude = TextEditingController();
     super.initState();
   }
+
+  //FUNCION SUBMIT
+  void submit() async {
+    if (_formkey.currentState!.validate()) {
+      _formkey.currentState!.save();
+      String rudenro= rude.text;
+      if (rudenro!= '') {
+          Navigator.of(context).push( MaterialPageRoute(
+        builder: (BuildContext context) =>  NotaPage(rude: rudenro,) //REDIRECIONAR
+      ));
+      } 
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +55,7 @@ class _InputNotaState extends State<InputNota> {
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
                     controller: rude,
-                    validator: (u) => u == "" ? "Por favor, ingrese el asunto" :null,
+                    validator: (u) => u == "" ? "Por favor, ingrese su nro rude" :null,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.perm_identity),
                       hintText: 'Coloque su número rude',
@@ -49,7 +66,7 @@ class _InputNotaState extends State<InputNota> {
           
                 const Divider(),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/2,
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
@@ -59,7 +76,16 @@ class _InputNotaState extends State<InputNota> {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: (){
-
+                      submit();
+                     /* String rudenro= rude.text;
+                      if (rudenro!= '') {
+                          Navigator.of(context).push( MaterialPageRoute(
+                        builder: (BuildContext context) =>  NotaPage(rude: rudenro,) //REDIRECIONAR
+                      ));
+                      }else{
+                        const snackBar = SnackBar(content: Text('Inserte su nro rude'),backgroundColor: Colors.indigo,);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }*/
                     },
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                   ),

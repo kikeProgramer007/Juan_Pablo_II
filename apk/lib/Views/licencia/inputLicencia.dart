@@ -146,7 +146,7 @@ void submit() async {
                     ),
                     items: _estudiantefk.map((item){
                       return DropdownMenuItem(
-                        child: Text(item.nombre),
+                        child: Text(item.apellidoPaterno+' '+item.apellidoMaterno+' '+item.nombre),
                         value: item.id.toInt(),
                         );
                     }).toList(),

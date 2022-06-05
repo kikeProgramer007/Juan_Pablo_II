@@ -1,221 +1,120 @@
 // ignore_for_file: file_names
 
+import 'package:apk/Models/notas.dart';
 import 'package:flutter/material.dart';
 import 'package:apk/Services/apiStatic.dart';
 
-import 'package:apk/Models/errorMsg.dart';
-import 'package:apk/Views/licencia/licenciaPage.dart';
-import 'package:apk/Models/licencia.dart';
-import 'package:apk/Models/estudiante.dart';
-
-
-class InputLicencia extends StatefulWidget { 
-  final Licencia licencia;
-  const InputLicencia({Key? key, required this.licencia}) : super(key: key);
-
+class NotaPage extends StatefulWidget {
+  const NotaPage({Key? key, required this.rude}) : super(key: key);
+  final String rude;
   @override
-  State<InputLicencia> createState() => _InputLicenciaState();
+  State<NotaPage> createState() => _NotaPageState();
 }
 
-class _InputLicenciaState extends State<InputLicencia> {
-  final _formkey = GlobalKey<FormState>();
-  late TextEditingController asunto,justificacion, fecha;
-  late List<Estudiante> _estudiantefk = [];
-  late int idEstudiante = 0;
-  late int idLicen = 0;
-  bool _isupdate = false;
-  // ignore: unused_field
-  bool _validate = false;
-  bool _success = false;
- // late String _activo = '0';
-  late ErrorMSG response;
+class _NotaPageState extends State<NotaPage> {
 
-  void getEstudiant() async {
-    final response = await ApiStatic.getEstudianteFk();
-    setState(() {
-      _estudiantefk = response.toList();
-    });
-  }
-
-//FUNCION SUBMIT
-void submit() async {
-  if (_formkey.currentState!.validate()) {
-    _formkey.currentState!.save();
-    var params ={
-      'asunto' : asunto.text.toString(),
-      'justificacion' : justificacion.text.toString(),
-      'fecha' : fecha.text.toString(),
-      //'activo' : _activo,
-      'id_estudiante' : idEstudiante.toString(),
-    };
-    response = await ApiStatic.saveLicencia(idLicen, params);
-    _success= response.success;
-    final snackBar = SnackBar(content: Text(response.message));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    if (_success) {
-
-      Navigator.of(context).pushReplacement( MaterialPageRoute(
-        builder: (BuildContext context) => const LicenciaPage()
-      ));
-    }
-  } else {
-    _validate =true;
-  }
-}
-
-@override
-  void initState() {
-    asunto= TextEditingController();
-    justificacion= TextEditingController();
-    fecha = TextEditingController();
-    getEstudiant();
-
-    if(widget.licencia.idEstudiante != 0){
-       idLicen = widget.licencia.id;
-       asunto= TextEditingController(text: widget.licencia.asunto);
-       justificacion= TextEditingController(text: widget.licencia.justificacion);
-       fecha = TextEditingController(text: widget.licencia.fecha);
-       idEstudiante = widget.licencia.idEstudiante;
-       //_activo = widget.licencia.activo.toString();
-       _isupdate = true;
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _isupdate ? Text(widget.licencia.fecha) : const Text('Guardar datos'),
+      appBar:  AppBar(
+        title: const Text('Notas'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          color: Colors.white,
-          child: Form(
-            key: _formkey,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: TextFormField(
-                    controller: asunto,
-                    validator: (u) => u == "" ? "Por favor, ingrese el asunto" :null,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.perm_identity),
-                      hintText: 'Coloque su asunto',
-                      labelText: 'Asunto',
-                    ),
-                  ),
-                ),
-                
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: TextFormField(
-                    controller: justificacion,
-                    validator: (u) => u == "" ? "Por favor, ingrese la justificación" :null,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.perm_identity),
-                      hintText: 'Justifique su solicitud',
-                      labelText: 'Justificación',
-                    ),
-                  ),
-                ),
-          
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: TextFormField(
-                    controller: fecha,
-                    validator: (u) => u == "" ? "Por favor, ingrese la fecha" :null,
-                    keyboardType: TextInputType.name,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.perm_identity),
-                      hintText: 'Escriba la fecha actual',
-                      labelText: 'fecha',
-                    ),
-                  ),
-                ),
-          
-               Padding(
-                  padding:  const EdgeInsets.all(5),
-                  child: DropdownButtonFormField(
-                    value: idEstudiante == 0 ? null : idEstudiante,
-                    hint: const Text("Estudiante"),
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.category_rounded)
-                    ),
-                    items: _estudiantefk.map((item){
-                      return DropdownMenuItem(
-                        child: Text(item.nombre),
-                        value: item.id.toInt(),
-                        );
-                    }).toList(),
-                    onChanged: (value){
-                      setState(() {
-                        idEstudiante = value as int;
-                      });
-                    },
-                    validator: (u) => u == null ? "Seleccione su nombre" : null,
-                  ),
-                ),
-          
-             /*  Padding(
-                  padding: const EdgeInsets.only(bottom: 10, left: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      const Icon(Icons.visibility),
-                      Row(
-                        children: <Widget>[
-                           Radio(
-                            value: "1",
-                            groupValue: _activo,
-                            onChanged: (String? newValue){
-                              setState(() {
-                                _activo = newValue!.toString();
-                              });
-                            }
+      
+      body: FutureBuilder<List<Notas>>(
+          future: ApiStatic.consultanotas(widget.rude),
+          builder: (context, snapshot){
+            if (snapshot.connectionState==ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              List<Notas> listNota = snapshot.data!;
+              return Container(
+                padding: const EdgeInsets.all(5),
+                child: ListView.builder(
+                  itemCount: listNota.length,
+                  
+                  itemBuilder: (BuildContext context, int index) => Column(
+                    children: [
+                      InkWell(
+
+                        child: Container(
+                          padding: const EdgeInsets.all(3),
+                          margin: const EdgeInsets.only(top: 6),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                            border: Border.all(width: 1.6,color: Colors.black26)
                           ),
-                          const Text('activo'),
-                           Radio(
-                            value: "0",
-                            groupValue: _activo,
-                            onChanged: (String? newValue){
-                              setState(() {
-                                _activo = newValue!.toString();
-                              });
-                            }
+
+                          child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10, right: 10),
+                                child: Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(listNota[index].nombreMateria.toString(), style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 14)),
+                                  ],
+                                ),
+                              ),
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text('1B',style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      Text(listNota[index].notaPrimerBimestre.toString(), style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+                                 
+                                  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text('  2B',style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      Text(' '+listNota[index].notaSegundoBimestre.toString(), style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+             
+                                  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text('  3B',style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      Text(' '+listNota[index].notaTercerBimestre.toString(), style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+                                  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text('  4B',style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      Text(' '+listNota[index].notaCuartoBimestre.toString(), style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+                                  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text('  PF',style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      Text(' '+listNota[index].promedioAnual.toString(), style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+                                ],
+                              )
+
+                            ],
                           ),
-                          const Text('inactivo')
-                        ],
+                        ),
                       )
                     ],
                   ),
-                ),*/
-          
-                const Divider(),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.0,
-                  // ignore: deprecated_member_use
-                  child: RaisedButton(
-                    color: Colors.green,
-                    child: const Text(
-                      'Guardar',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: (){
-                      //submit
-                      submit();
-                    },
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                  ),
-                )
-              ],
-            ),
-          ),
-        )
+                ),
+              );
+            }
+          },
       ),
+
     );
   }
 }

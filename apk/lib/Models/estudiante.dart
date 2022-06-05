@@ -9,7 +9,6 @@ class Estudiante {
       required  this.apellidoMaterno,
       required  this.genero,
       required  this.fechaNacimiento,
-
     });
 
     int id;

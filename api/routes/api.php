@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AsistenciaController;
 use App\Http\Controllers\Api\CursoController;
+use App\Http\Controllers\Api\CursoEstudianteController;
 use App\Http\Controllers\Api\EstudianteController;
 use App\Http\Controllers\Api\EstudianteMateriaController;
 use App\Http\Controllers\Api\LicenciaController;
@@ -15,7 +16,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::controller(CursoController::class)->group(function (){
-    Route::get('/cursos','index');
+    Route::get('/curso','index');//<-- SOLO BORRAR LA S
     Route::post('/curso','store');
     Route::get('/curso/{id}','show');
     Route::post('/curso/{id}','update');
@@ -24,7 +25,7 @@ Route::controller(CursoController::class)->group(function (){
 });
 
 Route::controller(MateriaController::class)->group(function (){
-    Route::get('/materias','index');
+    Route::get('/materia','index');
     Route::post('/materia','store');
     Route::get('/materia/{id}','show');
     Route::post('/materia/{id}','update');
@@ -33,7 +34,7 @@ Route::controller(MateriaController::class)->group(function (){
 });
 
 Route::controller(LicenciaController::class)->group(function (){
-    Route::get('/licencias','index');
+    Route::get('/licencia','index');
     Route::post('/licencia','store');
     Route::get('/licencia/{id}','show');
     Route::post('/licencia/{id}','update');
@@ -42,7 +43,7 @@ Route::controller(LicenciaController::class)->group(function (){
 });
 
 Route::controller(AsistenciaController::class)->group(function (){
-    Route::get('/asistencias','index');
+    Route::get('/asistencia','index');
     Route::post('/asistencia','store');
     Route::get('/asistencia/{id}','show');
     Route::put('/asistencia/{id}','update');
@@ -50,7 +51,7 @@ Route::controller(AsistenciaController::class)->group(function (){
 });
 
 Route::controller(EstudianteController::class)->group(function (){
-    Route::get('/estudiantes','index');
+    Route::get('/estudiante','index');
     Route::post('/estudiante','store');
     Route::get('/estudiante/{id}','show');
     Route::put('/estudiante/{id}','update');
@@ -60,8 +61,14 @@ Route::controller(EstudianteController::class)->group(function (){
 Route::controller(EstudianteMateriaController::class)->group(function (){
     Route::get('/notas','index');
     Route::get('/nota/{rude}','show');
-    
     Route::post('/nota','store');
     Route::put('/nota/{id}','update');
     Route::delete('/nota/{id}','destroy');
+});
+
+Route::controller(CursoEstudianteController::class)->group(function (){
+    Route::get('/cursoestudiante','index');
+    Route::get('/cursoestudiante/{grado}/{nivel}','show');
+    Route::post('/cursoestudiante','store');
+    Route::delete('/cursoestudiante/{id}','destroy');
 });

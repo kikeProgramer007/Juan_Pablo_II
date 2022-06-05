@@ -34,9 +34,9 @@ ESTUDIANTE:
 ==========================================================================================================
 
 CURSO_ESTUDIANTE (TERCERA TABLA ENTRE CURSO-ESTUDIANTE):
-> php artisan make:migration create_curso_estudiante_table 	<--Para crear una migración
-> php artisan make:model Lista -m     				<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
-> php artisan make:controller Api/ListaController --api    	<--CREAR CONTROLADOR Y METODOS API
+> php artisan make:migration create_curso_estudiante_table 		<--Para crear una migración
+> php artisan make:model CursoEstudiante     				<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/CursoEstudianteController --api    	<--CREAR CONTROLADOR Y METODOS API
 ==========================================================================================================
 
 ESTUDIANTE_MATERIA (TERCERA TABLA ENTRE ESTUDIANTE-MATERIA):
@@ -245,7 +245,16 @@ ORDER BY em.promedio_anual DESC
 //MOSTRAR LAS MOSTRAR LAS FALTAS Y FECHA DE UN ALUMNO INGRESANDO EL RUDE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MOSTRAR LOS ESTUDIANTE,GRADO,NIVEL,GRUPO GESTION SEGUN CURSO
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT e.nombre, e.apellido_paterno, e.apellido_materno, c.grado, c.nivel,c.grupo,ce.gestion
+FROM curso_estudiante ce 
+	JOIN  estudiantes e ON ce.id_estudiante = e.id
+	JOIN cursos c ON ce.id_curso = c.id
+WHERE c.grado = 'Cuarto'
+AND c.nivel = 'Secundaria'
+ORDER BY c.grado DESC;
 // MOSTRAR LAS NOTAS DE UN
 
 
@@ -264,7 +273,7 @@ Actualizar Repositorio:
 > git status
 > git add .
 > git commit -m "descripcion de cambios"
-> gir push origin main
+> git push origin main
 
 
 

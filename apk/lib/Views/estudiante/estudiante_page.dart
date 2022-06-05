@@ -1,20 +1,11 @@
 
-
-
+import 'package:apk/Models/cursoestudiante.dart';
 import 'package:apk/Services/apiStatic.dart';
-
-
-
-import 'package:apk/Models/estudiante.dart';
-import 'package:apk/Views/estudiante/detalleestudiante_page.dart';
-import 'package:apk/Views/widget/buttonBar.dart';
-
 import 'package:flutter/material.dart';
 
-
-
 class EstudiantePage extends StatefulWidget {
-  const EstudiantePage({Key? key}) : super(key: key);
+   const EstudiantePage({Key? key, required this.titulo, required this.grado,required this.nivel}) : super(key: key);
+   final String grado,nivel,titulo;
 
   @override
   State<EstudiantePage> createState() => _EstudiantePageState();
@@ -25,29 +16,27 @@ class _EstudiantePageState extends State<EstudiantePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  AppBar(
-        title: const Text('Estudiantes'),
+        title:  Text(widget.titulo),
       ),
 
-      body: FutureBuilder<List<Estudiante>>(
-          future: ApiStatic.getEstudiante(),
+      body: FutureBuilder<List<Cursoestudiante>>(
+          future: ApiStatic.estudianteseguncurso(widget.grado,widget.nivel),
           builder: (context, snapshot){
             if (snapshot.connectionState==ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else {
-              List<Estudiante> listEstudiante = snapshot.data!;
+              List<Cursoestudiante> listEstudiante = snapshot.data!;
               return Container(
-                padding: EdgeInsets.all(5),
+                
+                padding: const EdgeInsets.all(5),
                 child: ListView.builder(
+                 
                   itemCount: listEstudiante.length,
                   
                   itemBuilder: (BuildContext context, int index) => Column(
                     children: [
+
                       InkWell(
-                        onTap: (){
-                          Navigator.of(context).push( MaterialPageRoute(
-                            builder: (BuildContext context) =>  DetalleEstudiantePage(estudiante: listEstudiante[index]) //REDIRECIONAR
-                          ));
-                        },
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           margin: const EdgeInsets.only(top: 10),
@@ -59,20 +48,40 @@ class _EstudiantePageState extends State<EstudiantePage> {
                           ),
 
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // const Icon (Icons.verified_user),
-                              //Image.network(ApiStatic.host+'/'+listEstudiante[index].foto, width: 30,),
-                              Image.network('https://as1.ftcdn.net/v2/jpg/00/69/93/04/1000_F_69930495_KT4GRB8Ncx1vbvYZ2iPqPxiG4Nx2nD5y.jpg', width: 30,),
                               Padding(
                                 padding: const EdgeInsets.only(left: 5, right: 5),
-                                child: Column(
+                                child: Row(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(listEstudiante[index].nombre+' '+listEstudiante[index].apellidoPaterno+' '+listEstudiante[index].apellidoMaterno),
-                                    Text(listEstudiante[index].fechaNacimiento, style: const TextStyle(fontSize: 8)),
+                                    Icon (Icons.school_outlined, color: listEstudiante[index].genero=='F'?Colors.pink : Colors.green),
+                                    Text(' '+listEstudiante[index].apellidoPaterno+' '+listEstudiante[index].apellidoMaterno+' '+listEstudiante[index].nombre),
                                   ],
                                 ),
+                              ),
+
+                             Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text('GRUPO',style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      Text(listEstudiante[index].grupo.toString(), style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+                                 
+                                  Column(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text('  GESTIÓN',style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                      Text(' '+listEstudiante[index].gestion.toString(), style: const TextStyle(fontSize: 12)),
+                                    ],
+                                  ),
+                                ],
                               )
+
                             ],
                           ),
                         ),
@@ -84,9 +93,7 @@ class _EstudiantePageState extends State<EstudiantePage> {
             }
           },
       ),
-
-    //BOTONES FOOTER
-      bottomNavigationBar: buildBottomBar(1, context)
+  
     );
   }
 }

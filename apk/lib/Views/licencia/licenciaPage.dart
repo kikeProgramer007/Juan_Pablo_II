@@ -72,7 +72,6 @@ class _LicenciaPageState extends State<LicenciaPage> {
                                 child: Column(
                                    crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                      
                                     Text(listLicencia[index].asunto,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
                                     Text(listLicencia[index].fecha.toString(), style: const TextStyle(fontSize: 12)),
                                   ],
