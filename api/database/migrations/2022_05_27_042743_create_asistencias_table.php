@@ -17,7 +17,7 @@ class CreateAsistenciasTable extends Migration
             $table->id();
             $table->string('estado',20);
             $table->date('fecha');
-            $table->tinyInteger('activo')->default('1');
+            //$table->tinyInteger('activo')->default('1');
             $table->unsignedBigInteger('id_estudiante');
             $table->unsignedBigInteger('id_licencia')->unique()->nullable();//EL NULLABLE ACEPTA VALORES NULOS
             // Relacionando tablas estudiantes capturando la llave primaria de asistencias

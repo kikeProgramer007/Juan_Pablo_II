@@ -43,24 +43,161 @@ Future<Post> fetchPost() async {
   }
 }
 
-TEMA:
-wifi 6
-
-viernes hasta las 5 de la tarde.
-debate
-
-WILLY DANIEL SALAZAR PRADO.
-PONDE:
-10 PARTICIPACION EN CLASE
-10 EXPOSICION
-20 TRABAJO FINAL
-60 VARIOS PARCIALES
-
-
-¡??¿¡¡¿¿¡¡¡¡¡
-
-que es una innovacion radicales
 
 //MOSTRAR MIS NOTAS SEGUN RUDE
 http://192.168.0.15/juanpabloii/api/public/api/nota/123456
+
+
+
+=========================================================================================================
+
+
+COMANDOS FLUTTER:
+
+> flutter --version			<--VERSION DE FLUTTER
+> flutter doctor			<--REVISAR SI EL EQUIPO TIENE LAS HERRAMIENTAS PARA TRABAJAR CON FLUTTER
+> flutter doctor --android-licenses	<--ACTIVAR LICENCIA
+
+
+ctrol+shift+p para crear proyecto flutter
+
+CONFIGURAR PARA Q VISUAL RECONOSCA EMULADOR
+
+> cd C:\Emulador\Microvirt\MEmu
+
+> adb connect localhost:21503
+
+
+
+?==============================================================================================
+
+
+REQUSITOS:
+- composer
+
+- Laravel
+
+- jwt laravel (para autentificacionf)
+  fuente: https://www.nigmacode.com/laravel/jwt-en-laravel/
+
+creacion de laravel
+
+-instalar laravel
+
+> composer global require laravel/installer			<-- INSTALAR LARAVEL
+> laravel new api						<-- CREAR API LARAVEL
+> cd api							<-- INGRESAR AL PROYECT
+> php artisan --version 					<-- VER VERSION DE LARAVEL
+> cd ..								<-- ATRAS
+> code api							<-- ABRIR PROYECT EN VSCODE
+> php artisan migrate						<-- MIGRAR BASE DE DATOS
+
+PAQUETE DE AUTENTIFICACION
+> composer require tymon/jwt-auth:dev-develop --prefer-source	<--INSTALANDO A LARAVEL JWT
+> php artisan jwt:secret					<-- GENERAR TOKEN
+
+ EN composer.json
+	"tymon/jwt-auth": "dev-develop",
+ LO REEMPLAZAMOS POR
+        "tymon/jwt-auth": "^1.0.0-beta.3@dev"
+
+> php artisan make:controller AuthController			<-- CREAR CONTROLADOR
+
+> 
+
+
+
+
+EJECUTAR SERVIDOR
+
+php artisan serv --host 192.168.0.15
+php artisan serv --host 192.168.0.15 --port 8000
+
+
+ ALT + SHIF + F -->ORDENAR CODIGO
+
+PARA CREAR UN PROYECTO FLUTTER
+CTRL + SHIF + P
+> new proyect flutter
+> select una carpeta
+
+
+
+FLUTTER:
+EN EL ARCHIVO "pubspec.yaml"
+....
+dependencies:
+  flutter:
+    sdk: flutter
+    #ADICIONASMOS ESTOS PAQUETES  <---OJO
+    http: any
+    shared_preferences: any
+
+.....
+
+INTALACION Y REVICION DE PAQUETES EN pupspec.yaml
+> flutter packages get
+
+ICONOS PARA FLUUTER:
+https://fonts.google.com/icons?selected=Material+Icons
+COMPONENTES DE FLUTTER;
+https://docs.flutter.dev/development/ui/widgets/basics
+
+
+ind conteo=0;
+conteo.toString()
+
+
+
+ERROR DE IMAGENES EN FLUTER(SOLUCION):
+
+flutter_test:
+  sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - loadjson/person.json
+
+
+
+FIREBASE:
+REGLAS
+{
+  "rules": {
+    ".read": "now < 1655006400000",  // 2022-6-12
+    ".write": "now < 1655006400000",  // 2022-6-12
+  }
+}
+
+PARA CREAR MODELOS DE DART SEGUN JSON:
+SELECIONAR:
+LENGUAJE DART
+ACTIVAR : Put encoder & decoder in Class
+ACTIVAR : Use method names fromMap() & toMap()
+https://app.quicktype.io/
+
+
+
+DEPENDENCIAS PARA HTTP(CONSUMIR API REST):
+
+dio 	--> https://pub.dev/packages/dio(recomendable)
+http 	--> https://pub.dev/packages/http
+
+
+
+ejemplo DE IMPLEMENTAR DIO:
+https://gitlab.com/RuddyQuispe/ayudantia-inf412/-/tree/assistant-preparation
+
+
+
+
+
+
+
+
+
+
+
+
 

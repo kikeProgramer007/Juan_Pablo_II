@@ -47,4 +47,39 @@ class AsistenciaController extends Controller
         $asistencia = Asistencia::destroy($id);
         return $asistencia;
     }
+
+    public function faltas($rude)
+    {
+      /*SELECT asistencias.fecha, asistencias.estado
+        FROM `asistencias`
+        INNER JOIN estudiantes ON asistencias.id_estudiante = estudiantes.id
+        WHERE estudiantes.codigo_rude=12345
+        AND asistencias.estado= 'Falta'*/
+
+        if(($rude)){
+            $faltas=Asistencia::select(
+                'asistencias.fecha',
+                'asistencias.estado'
+            )
+            ->join('estudiantes','asistencias.id_estudiante','=','estudiantes.id')
+            ->where('estudiantes.codigo_rude','=',$rude)->where('asistencias.estado','=','Falta')
+            ->get();
+            //->get(); //DEVUELDE TODOS LOS DATOS
+            //->toSql();  //DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
+            if (count($faltas) > 0) {//SI NO ESTA VACIO
+                return $faltas;
+            }else{
+                return [
+                    'success' => false,
+                    'message' => 'No hay regitros',
+                ];
+            }
+        }else{
+            return [
+                'success' => false,
+                'message' => 'inserte el nro rude',
+            ];
+        }
+    }
+
 }

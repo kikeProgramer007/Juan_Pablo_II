@@ -244,6 +244,16 @@ ORDER BY em.promedio_anual DESC
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //MOSTRAR LAS MOSTRAR LAS FALTAS Y FECHA DE UN ALUMNO INGRESANDO EL RUDE
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT nombreColumna(s)
+FROM tabla1
+INNER JOIN tabla2
+ON tabla1.nombreColumna=table2.nombreColumna;
+
+SELECT asistencias.fecha, asistencias.estado
+FROM `asistencias`
+INNER JOIN estudiantes ON asistencias.id_estudiante = estudiantes.id
+WHERE estudiantes.codigo_rude=12345
+AND asistencias.estado= 'Falta'
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //MOSTRAR LOS ESTUDIANTE,GRADO,NIVEL,GRUPO GESTION SEGUN CURSO
