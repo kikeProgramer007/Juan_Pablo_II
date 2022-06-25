@@ -63,6 +63,8 @@ ctrol+shift+p para crear proyecto flutter
 
 CONFIGURAR PARA Q VISUAL RECONOSCA EMULADOR
 
+Abri cmd en modo administrador.
+
 > cd C:\Emulador\Microvirt\MEmu
 
 > adb connect localhost:21503

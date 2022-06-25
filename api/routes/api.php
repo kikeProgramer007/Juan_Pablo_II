@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AsistenciaController;
+use App\Http\Controllers\Api\AvisoController;
 use App\Http\Controllers\Api\CursoController;
 use App\Http\Controllers\Api\CursoEstudianteController;
 use App\Http\Controllers\Api\EstudianteController;
@@ -62,6 +63,14 @@ Route::controller(EstudianteMateriaController::class)->group(function (){
     Route::post('/nota','store');
     Route::put('/nota/{id}','update');
     Route::delete('/nota/{id}','destroy');
+});
+
+Route::controller(AvisoController::class)->group(function (){
+    Route::get('/aviso','index');
+    Route::post('/aviso','store');
+    Route::get('/aviso/{id}','show');
+    Route::put('/aviso/{id}','update');
+    Route::delete('/aviso/{id}','destroy');
 });
 
 //CONSULTAS GET:

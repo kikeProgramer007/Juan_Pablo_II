@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             'licencias',
             'asistencias',
             'users',
+            'Avisos',
         ]);
 
         $this->call([
@@ -36,7 +37,8 @@ class DatabaseSeeder extends Seeder
             EstudianteMateriaSeeder::class,
             LicenciaSeeder::class,
             AsistenciaSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            AvisoSeeder::class
         ]);
     }
 

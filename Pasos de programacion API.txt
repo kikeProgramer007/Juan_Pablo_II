@@ -9,7 +9,7 @@ VALIDAR LARAVEL 8:https://8bityard.com/how-to-validate-api-in-laravel/
 G
 ======================================================================================================
 
-> composer create-project laravel/laravel:^8.0 example-app	<--CREAR EL PROYECTO LARAVEL 8
+> composer create-project laravel/laravel:^8.* example-app	<--CREAR EL PROYECTO LARAVEL 8
 
 > php artisan route:list					<--VER MIS RUTAS DISPONIBLES
 ==========================================================================================================
@@ -61,6 +61,9 @@ ASISTENCIA:
 > php artisan make:controller Api/AsistenciaController --api    <--CREAR CONTROLADOR Y METODOS API
 ==========================================================================================================
 
+MATERIA:
+> php artisan make:model Aviso -m     				<--CREAR MODELO PARA TABLA MÁS SU MIGRACIÓN
+> php artisan make:controller Api/AvisoController --api   	<--CREAR CONTROLADOR Y METODOS API
 
 
  ===============================================================================================================================================
@@ -130,10 +133,9 @@ PASO 3:
 > php artisan make:seeder EstudianteMateriaSeeder		<-- SEEDER PARA REGISTRAR DESDE LARAVEL
 > php artisan make:seeder LicenciaSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
 > php artisan make:seeder AsistenciaSeeder			<-- SEEDER PARA REGISTRAR DESDE LARAVEL
+> php artisan make:seeder AvisoSeeder				<-- SEEDER PARA REGISTRAR DESDE LARAVEL
 
 
-           
-    
 > php artisan db:seed --class=UserSeeder
 > php artisan db:seed --class=LicenciaSeeder
 > php artisan db:seed --class=AsistenciaSeeder
