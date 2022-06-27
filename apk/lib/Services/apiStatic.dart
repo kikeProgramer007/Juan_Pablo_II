@@ -2,6 +2,7 @@
 
 
 import 'dart:convert';
+import 'package:apk/Models/aviso.dart';
 import 'package:apk/Models/cursoestudiante.dart';
 import 'package:apk/Models/notas.dart';
 import 'package:http/http.dart'as http;
@@ -12,7 +13,9 @@ import 'package:apk/Models/estudiante.dart';
 
 
 class ApiStatic {
-  static const host='http://34.134.235.85';
+  // static const host='http://34.134.235.85';
+  static const host='http://192.168.0.18/juanpabloii/api/public';
+  
   static const _token = "14|qLACXYpMaayjFVeTKoHmMc81j3vYahiPs1poTAZ2";
   static gertHost(){
     return host;
@@ -173,5 +176,27 @@ class ApiStatic {
         return [];
       }
     }
+
+    //TRAER NOTICIAS
+    static Future<List<Aviso>> getavisos() async{
+      try {
+            final response = await http.get(Uri.parse("$host/api/aviso"),
+              headers: {'Authorization' : 'Bearer '+_token},
+            );
+          if (response.statusCode == 200) {//si hay respuesta
+            var json = jsonDecode(response.body);
+            final parse = json.cast<Map<String, dynamic>>();
+            // print(response.statusCode);
+            return parse.map<Aviso>((json) =>Aviso.fromJson(json)).toList();
+          }else{
+            return [];
+          }
+        
+      } catch (e) {
+        return [];
+      }
+    }
+
+
 
 }

@@ -19,20 +19,22 @@ class _DetalleLicenciaPageState extends State<DetalleLicenciaPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.licencia.asunto.toString()),
+        backgroundColor: Colors.black,
       ),
 
       body: SizedBox(
         width: double.infinity,
         child: ListView(
           children: [
-            Image.network('https://as1.ftcdn.net/v2/jpg/00/69/93/04/1000_F_69930495_KT4GRB8Ncx1vbvYZ2iPqPxiG4Nx2nD5y.jpg'),
+            // Image.network('https://as1.ftcdn.net/v2/jpg/00/69/93/04/1000_F_69930495_KT4GRB8Ncx1vbvYZ2iPqPxiG4Nx2nD5y.jpg'),
+            Image.asset('assets/images/book.png'),
             Container(
               padding: const EdgeInsets.all(5),
               decoration: const  BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [ Color(0xff3164bd),  Color (0xff295cb5)],
+                  colors: [ Color.fromARGB(255, 0, 0, 0),  Color.fromARGB(255, 0, 0, 0)],
                 ),
               ),
               child: Text(widget.licencia.asunto, style: const TextStyle(color: Colors.white),),

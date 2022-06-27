@@ -19,13 +19,15 @@ class _NotaPageState extends State<NotaPage> {
     return Scaffold(
       appBar:  AppBar(
         title: const Text('Notas'),
+        centerTitle: true,
+        backgroundColor: Colors.black,
       ),
       
       body: FutureBuilder<List<Notas>>(
           future: ApiStatic.consultanotas(widget.rude),
           builder: (context, snapshot){
             if (snapshot.connectionState==ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator(color: Colors.black,));
             } else {
               List<Notas> listNota = snapshot.data!;
               return Container(

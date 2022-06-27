@@ -1,9 +1,9 @@
 
 import 'package:apk/Views/estudiante/estudiante_page.dart';
 import 'package:apk/Views/notas/nota_page.dart';
-import 'package:apk/Views/widget/buttonBar.dart';
+// import 'package:apk/Views/widget/buttonBar.dart';
 import 'package:flutter/material.dart';
-
+import 'package:apk/Views/widget/navigation_drawer.dart';
 
 class CursosPage extends StatefulWidget {
    
@@ -41,8 +41,11 @@ class _CursosPageState extends State<CursosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawer(),//BOTON ND
       appBar: AppBar(
-        title:const Text('Estudiantes'),
+        title:const Text('Cursos'),
+        centerTitle: true,
+        backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -58,7 +61,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '1RO PRIMARIA',
                       style: TextStyle(color: Colors.white),
@@ -78,7 +81,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '2DO PRIMARIA',
                       style: TextStyle(color: Colors.white),
@@ -98,7 +101,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '3RO PRIMARIA',
                       style: TextStyle(color: Colors.white),
@@ -117,7 +120,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '4TO PRIMARIA',
                       style: TextStyle(color: Colors.white),
@@ -136,7 +139,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '5TO PRIMARIA',
                       style: TextStyle(color: Colors.white),
@@ -155,7 +158,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '6TO PRIMARIA',
                       style: TextStyle(color: Colors.white),
@@ -174,7 +177,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '1RO SECUNDARIA',
                       style: TextStyle(color: Colors.white),
@@ -193,7 +196,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '2DO SECUNDARIA',
                       style: TextStyle(color: Colors.white),
@@ -212,7 +215,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '3RO SECUNDARIA',
                       style: TextStyle(color: Colors.white),
@@ -231,7 +234,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '4TO SECUNDARIA',
                       style: TextStyle(color: Colors.white),
@@ -250,7 +253,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '5TO SECUNDARIA',
                       style: TextStyle(color: Colors.white),
@@ -269,7 +272,7 @@ class _CursosPageState extends State<CursosPage> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       '6TO SECUNDARIA',
                       style: TextStyle(color: Colors.white),
@@ -289,7 +292,7 @@ class _CursosPageState extends State<CursosPage> {
         )
       ),
        //BOTONES FOOTER
-      bottomNavigationBar: buildBottomBar(1, context)
+      // bottomNavigationBar: buildBottomBar(1, context)
     );
   }
 }

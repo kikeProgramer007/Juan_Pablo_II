@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:apk/Services/apiStatic.dart';
 
 import 'package:apk/Models/errorMsg.dart';
-import 'package:apk/Views/licencia/licenciaPage.dart';
+import 'package:apk/Views/licencia/licencia_page.dart';
 import 'package:apk/Models/licencia.dart';
 import 'package:apk/Models/estudiante.dart';
 
@@ -23,6 +23,8 @@ class _InputLicenciaState extends State<InputLicencia> {
   late List<Estudiante> _estudiantefk = [];
   late int idEstudiante = 0;
   late int idLicen = 0;
+  String _fecha  = '';
+
   bool _isupdate = false;
   // ignore: unused_field
   bool _validate = false;
@@ -50,7 +52,7 @@ void submit() async {
     };
     response = await ApiStatic.saveLicencia(idLicen, params);
     _success= response.success;
-    final snackBar = SnackBar(content: Text(response.message));
+    final snackBar = SnackBar(content: Text(response.message),backgroundColor: Colors.black,);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (_success) {
 
@@ -87,6 +89,7 @@ void submit() async {
     return Scaffold(
       appBar: AppBar(
         title: _isupdate ? Text(widget.licencia.fecha) : const Text('Guardar datos'),
+        backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -113,6 +116,7 @@ void submit() async {
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
                     controller: justificacion,
+                    textCapitalization: TextCapitalization.sentences,
                     validator: (u) => u == "" ? "Por favor, ingrese la justificación" :null,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.perm_identity),
@@ -125,14 +129,19 @@ void submit() async {
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
+                    enableInteractiveSelection: false,
                     controller: fecha,
                     validator: (u) => u == "" ? "Por favor, ingrese la fecha" :null,
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.datetime,
                     decoration: const InputDecoration(
-                      icon: Icon(Icons.perm_identity),
+                      icon: Icon(Icons.calendar_today),
                       hintText: 'Escriba la fecha actual',
                       labelText: 'fecha',
                     ),
+                    onTap: (){
+                      FocusScope.of(context).requestFocus( FocusNode());
+                      _selectDate( context );
+                    },
                   ),
                 ),
           
@@ -159,47 +168,13 @@ void submit() async {
                   ),
                 ),
           
-             /*  Padding(
-                  padding: const EdgeInsets.only(bottom: 10, left: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      const Icon(Icons.visibility),
-                      Row(
-                        children: <Widget>[
-                           Radio(
-                            value: "1",
-                            groupValue: _activo,
-                            onChanged: (String? newValue){
-                              setState(() {
-                                _activo = newValue!.toString();
-                              });
-                            }
-                          ),
-                          const Text('activo'),
-                           Radio(
-                            value: "0",
-                            groupValue: _activo,
-                            onChanged: (String? newValue){
-                              setState(() {
-                                _activo = newValue!.toString();
-                              });
-                            }
-                          ),
-                          const Text('inactivo')
-                        ],
-                      )
-                    ],
-                  ),
-                ),*/
-          
                 const Divider(),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.green,
+                    color: Colors.black,
                     child: const Text(
                       'Guardar',
                       style: TextStyle(color: Colors.white),
@@ -217,5 +192,50 @@ void submit() async {
         )
       ),
     );
+  }
+
+    _selectDate(BuildContext context) async {
+
+    DateTime? picked = await showDatePicker(
+      context: context, 
+      initialDate:  DateTime.now(),
+      firstDate:  DateTime(2018),//fecha minima
+      lastDate:  DateTime(2025),//fecha maxima
+      // locale: const Locale('es', 'ES')
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Colors.black, // header background color
+              onPrimary: Colors.white, // header text color
+              onSurface: Colors.black, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: Colors.indigo, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+      if ( picked != null ) {
+      setState(() { //redibujar para mostrar la fecha seleccionada
+          // _fecha = picked.toString();
+          String _anio = picked.year.toString();
+          String _mes ='';
+          String _dia ='';
+           
+          if(picked.day<10){ _dia = '0'+picked.day.toString();  }else{ _dia = picked.day.toString();}
+          if(picked.month<10){ _mes = '0'+picked.month.toString();  }else{ _mes = picked.month.toString();}
+
+          _fecha  = _anio+'-'+_mes+'-'+_dia;
+
+          fecha.text = _fecha; //asignado el valor dentro de la caja de texto
+      });
+    }
+    
   }
 }

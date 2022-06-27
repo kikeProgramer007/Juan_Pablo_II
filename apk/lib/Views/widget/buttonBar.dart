@@ -5,8 +5,7 @@ import 'package:apk/Views/notas/input_nota.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:apk/Views/licencia/licenciaPage.dart';
-import 'package:apk/Views/homePage.dart';
+import 'package:apk/Views/licencia/licencia_page.dart';
 
 Widget buildBottomBar(index, BuildContext context){
   return BottomNavigationBar(
@@ -19,7 +18,7 @@ Widget buildBottomBar(index, BuildContext context){
           switch (i) {
             case 0:
               Navigator.of(context).pushReplacement( MaterialPageRoute(
-                builder: (BuildContext context) => const HomePage() //REDIRECIONAR
+                 builder: (BuildContext context) => const CursosPage()//REDIRECIONAR
                 ));
               break;
            case 1:

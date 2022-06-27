@@ -17,13 +17,15 @@ class _EstudiantePageState extends State<EstudiantePage> {
     return Scaffold(
       appBar:  AppBar(
         title:  Text(widget.titulo),
+        centerTitle: true,
+        backgroundColor: Colors.black,
       ),
 
       body: FutureBuilder<List<Cursoestudiante>>(
           future: ApiStatic.estudianteseguncurso(widget.grado,widget.nivel),
           builder: (context, snapshot){
             if (snapshot.connectionState==ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator(color: Colors.black,));
             } else {
               List<Cursoestudiante> listEstudiante = snapshot.data!;
               return Container(

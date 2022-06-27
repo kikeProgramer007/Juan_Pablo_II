@@ -1,6 +1,6 @@
 
 import 'package:apk/Views/notas/nota_page.dart';
-import 'package:apk/Views/widget/buttonBar.dart';
+import 'package:apk/Views/widget/navigation_drawer.dart';
 import 'package:flutter/material.dart';
 
 
@@ -40,8 +40,11 @@ class _InputNotaState extends State<InputNota> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawer(),//BOTON ND
       appBar: AppBar(
         title:const Text('Ver notas del estudiante'),
+        centerTitle: true,
+        backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -54,6 +57,7 @@ class _InputNotaState extends State<InputNota> {
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
+                
                     controller: rude,
                     validator: (u) => u == "" ? "Por favor, ingrese su nro rude" :null,
                     decoration: const InputDecoration(
@@ -70,7 +74,7 @@ class _InputNotaState extends State<InputNota> {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.black,
                     child: const Text(
                       'Ver notas',
                       style: TextStyle(color: Colors.white),
@@ -95,8 +99,7 @@ class _InputNotaState extends State<InputNota> {
           ),
         )
       ),
-       //BOTONES FOOTER
-      bottomNavigationBar: buildBottomBar(3, context)
+
     );
   }
 }

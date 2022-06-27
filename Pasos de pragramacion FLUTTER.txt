@@ -47,8 +47,25 @@ Future<Post> fetchPost() async {
 //MOSTRAR MIS NOTAS SEGUN RUDE
 http://192.168.0.15/juanpabloii/api/public/api/nota/123456
 
-
-
+================================ EXTENCIONES PARA FLUTTER =====================================================
+- Awesome Flutter Snippets
+- Dart
+- Flutter
+- Material Icon Theme
+- Pubspec Assist
+- Spanish Language Pack for Visual Studio C
+- Monokai Night Theme
+- Paste JSON as Code
+================================ EXTENCIONES PARA LARAVEL =====================================================
+- Laravel Blade formatter
+- Laravel Blade Snippets
+- Laravel Extra Intellisense
+- Laravel goto view
+- Laravel Snippets
+- PHP Intelephense
+- Bootstrap 5 & Font Awesome Snippets
+- ES7+ React/Redux/React-Native snippets (react)
+- Thunder Client (Pata enpoints)
 =========================================================================================================
 
 
@@ -186,20 +203,32 @@ DEPENDENCIAS PARA HTTP(CONSUMIR API REST):
 dio 	--> https://pub.dev/packages/dio(recomendable)
 http 	--> https://pub.dev/packages/http
 
+//PARA LAS FECHAS
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations: # Add this line
+    sdk: flutter         # Add this line
 
 
 ejemplo DE IMPLEMENTAR DIO:
 https://gitlab.com/RuddyQuispe/ayudantia-inf412/-/tree/assistant-preparation
 
+====================== COMPILAR APK FLUTTER =====================================
+
+> git clone 'https://github.com/...'
+> flutter packages get
 
 
 
+====================== COMANDO DE VSC PARA FLUTTER =====================================
 
+Ctrol+Shift+p  --> Flutter:New Proyect
+Ctrol+Shift+p  --> Flutter:Select Device
+Ctrol+Shift+p  --> Pubspec Assit:Add/update dependecies (ej: http,dio)
 
-
-
-
-
-
+generador de codigo:
+statefull
+importM
 
 
