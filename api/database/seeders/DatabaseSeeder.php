@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'licencias',
             'asistencias',
             'users',
-            'Avisos',
+            'avisos',
         ]);
 
         $this->call([

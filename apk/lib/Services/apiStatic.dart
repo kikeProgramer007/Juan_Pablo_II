@@ -15,8 +15,8 @@ import 'package:apk/Models/estudiante.dart';
 
 
 class ApiStatic {
-  // static const host='http://34.134.235.85'; 
-  static const host='http://192.168.0.10/juanpabloii/api/public';
+  // static const host='http://192.168.0.10/juanpabloii/api/public';
+ static const host='http://34.134.235.85';
 
   static const _token = "14|qLACXYpMaayjFVeTKoHmMc81j3vYahiPs1poTAZ2";
   static gertHost(){
