@@ -59,8 +59,9 @@ class EstudianteMateriaController extends Controller
             ->join('materias','estudiante_materia.id_materia','=','materias.id')
             ->where('estudiantes.codigo_rude','=',$rude)
             ->orderBy('estudiante_materia.promedio_anual','asc')
-            ->paginate(20);
-            //->get(); //DEVUELDE TODOS LOS DATOS
+            ->get(); //DEVUELDE TODOS LOS DATOS
+            // ->paginate(20);
+           
             //->toSql();  //DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
             if (count($notas) > 0) {//SI NO ESTA VACIO
                 return $notas;
@@ -79,11 +80,40 @@ class EstudianteMateriaController extends Controller
  
     }
 
+    public function mysubjects($rude){
+        if(is_numeric($rude)){
+            $materias=EstudianteMateria::select(
+                'materias.nombre_materia',
+                'materias.docente'
+            )
+            ->join('estudiantes','estudiante_materia.id_estudiante','=','estudiantes.id')
+            ->join('materias','estudiante_materia.id_materia','=','materias.id')
+            ->where('estudiantes.codigo_rude','=',$rude)
+            ->orderBy('materias.nombre_materia','asc')->get(); 
+            //DEVUELDE TODOS LOS DATOS
+            //  ->paginate(20);
+            //->toSql(); DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
+            if (count($materias) > 0) {//SI NO ESTA VACIO
+                return $materias;
+            }else{
+                return [
+                    'success' => false,
+                    'message' => 'No hay regitros',
+                ];
+            }
+        }else{
+            return [
+                'success' => false,
+                'message' => 'inserte un número',
+            ];
+        }
+    }
 
     public function update(Request $request, $id)
     {
         //
     }
+
 
 
     public function destroy($id)

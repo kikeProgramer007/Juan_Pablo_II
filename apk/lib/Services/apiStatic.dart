@@ -4,6 +4,8 @@
 import 'dart:convert';
 import 'package:apk/Models/aviso.dart';
 import 'package:apk/Models/cursoestudiante.dart';
+import 'package:apk/Models/faltas.dart';
+import 'package:apk/Models/materia.dart';
 import 'package:apk/Models/notas.dart';
 import 'package:http/http.dart'as http;
 
@@ -13,15 +15,15 @@ import 'package:apk/Models/estudiante.dart';
 
 
 class ApiStatic {
-  // static const host='http://34.134.235.85';
-  static const host='http://192.168.0.18/juanpabloii/api/public';
-  
+  // static const host='http://34.134.235.85'; 
+  static const host='http://192.168.0.10/juanpabloii/api/public';
+
   static const _token = "14|qLACXYpMaayjFVeTKoHmMc81j3vYahiPs1poTAZ2";
   static gertHost(){
     return host;
   }
 
-    static Future<List<Licencia>> getLicencia() async {
+  static Future<List<Licencia>> getLicencia() async {
     try {
       final response = await http.get(Uri.parse("$host/api/licencia"),
       headers: {'Authorization' : 'Bearer '+_token},
@@ -147,7 +149,8 @@ class ApiStatic {
             );
           if (response.statusCode == 200) {//si hay respuesta
             var json = jsonDecode(response.body);
-            final parse = json['data'].cast<Map<String, dynamic>>();
+           final parse = json.cast<Map<String, dynamic>>();
+            // final parse = json['data'].cast<Map<String, dynamic>>();
             return parse.map<Notas>((json) =>Notas.fromJson(json)).toList();
           }else{
             return [];
@@ -158,7 +161,7 @@ class ApiStatic {
       }
     }
 
-    //FUNCION PARA TRAER LAS NOTAS SEGUN EL RUDE
+    //FUNCION PARA TRAER LOS ALUMNOS SEGUN EL GRADO Y IVEL
     static Future<List<Cursoestudiante>> estudianteseguncurso(grado, nivel) async{
       try {
             final response = await http.get(Uri.parse("$host/api/cursoestudiante/"+grado.toString()+'/'+nivel.toString()),
@@ -197,6 +200,43 @@ class ApiStatic {
       }
     }
 
-
+    //CONSULTAS DE FALTAS
+    static Future<List<Faltas>> consultarfaltas(rude) async{
+      try {
+            final response = await http.get(Uri.parse("$host/api/faltas/"+rude.toString()),
+              headers: {'Authorization' : 'Bearer '+_token},
+            );
+          if (response.statusCode == 200) {//si hay respuesta
+            var json = jsonDecode(response.body);
+            final parse = json.cast<Map<String, dynamic>>();
+            // print(response.statusCode);
+            return parse.map<Faltas>((json) =>Faltas.fromJson(json)).toList();
+          }else{
+            return [];
+          }
+        
+      } catch (e) {
+        return [];
+      }
+    }
+    //CONSULTAS DE MIS Materias
+    static Future<List<Materia>> consultarmimaterias(rude) async{
+      try {
+            final response = await http.get(Uri.parse("$host/api/mimaterias/"+rude.toString()),
+              headers: {'Authorization' : 'Bearer '+_token},
+            );
+          if (response.statusCode == 200) {//si hay respuesta
+            var json = jsonDecode(response.body);
+            final parse = json.cast<Map<String, dynamic>>();
+            // print(response.statusCode);
+            return parse.map<Materia>((json) =>Materia.fromJson(json)).toList();
+          }else{
+            return [];
+          }
+        
+      } catch (e) {
+        return [];
+      }
+    }
 
 }

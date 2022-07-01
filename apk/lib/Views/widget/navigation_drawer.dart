@@ -1,8 +1,9 @@
 import 'package:apk/Views/aviso/aviso_page.dart';
-import 'package:apk/Views/estudiante/cursos_page.dart';
+import 'package:apk/Views/curso/cursos_page.dart';
+import 'package:apk/Views/falta/input_nota.dart';
+import 'package:apk/Views/materia/input_materias.dart';
 import 'package:apk/Views/notas/input_nota.dart';
 import 'package:flutter/material.dart';
-// import 'package:apk/Views/widget/Account.dart';
 import 'package:apk/Views/licencia/licencia_page.dart';
 import 'package:apk/Views/widget/drawer_item.dart';
 
@@ -56,17 +57,11 @@ class NavigationDrawer extends StatelessWidget {
               const Divider(thickness: 1, height: 10, color: Colors.grey,),
               const SizedBox(height: 30,),
               DrawerItem(
-                name: 'Setting',
-                icon: Icons.settings,
+                name: 'Mis materias',
+                icon: Icons.my_library_books_sharp,
                 onPressed: ()=> onItemPressed(context, index: 5),
               ),
               const SizedBox(height: 30,),
-              DrawerItem(
-                name: 'Log out',
-                icon: Icons.logout,
-                onPressed: ()=> onItemPressed(context, index: 6),
-              ),
-               const SizedBox(height: 30,),
         
             ],
           ),
@@ -90,10 +85,13 @@ class NavigationDrawer extends StatelessWidget {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LicenciaPage()));
         break;
       case 3:
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const InputNota()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const InputFalta()));
         break;
       case 4:
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const InputNota()));
+        break;
+      case 5:
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const InputMateria()));
         break;
       // default: 
       //   Navigator.pop(context);

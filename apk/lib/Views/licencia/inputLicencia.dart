@@ -88,7 +88,7 @@ void submit() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _isupdate ? Text(widget.licencia.fecha) : const Text('Guardar datos'),
+        title: _isupdate ? Text(widget.licencia.asunto) : const Text('Guardar datos'),
         backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(

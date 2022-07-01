@@ -82,4 +82,11 @@ Route::controller(CursoEstudianteController::class)->group(function (){
 Route::controller(AsistenciaController::class)->group(function (){
     Route::get('/faltas/{rude}','faltas');
 });
-
+//CONSULTAS GET:
+Route::controller(CursoEstudianteController::class)->group(function (){
+    Route::get('/cursoestudiante/{grado}/{nivel}','show');
+});
+//CONSULTAS GET:
+Route::controller(EstudianteMateriaController::class)->group(function (){
+    Route::get('/mimaterias/{rude}','mysubjects');
+});

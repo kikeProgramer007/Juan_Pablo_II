@@ -1,5 +1,5 @@
 
-import 'package:apk/Views/estudiante/estudiante_page.dart';
+import 'package:apk/Views/curso/estudiante_page.dart';
 import 'package:apk/Views/notas/nota_page.dart';
 // import 'package:apk/Views/widget/buttonBar.dart';
 import 'package:flutter/material.dart';
