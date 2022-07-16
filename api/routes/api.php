@@ -8,8 +8,30 @@ use App\Http\Controllers\Api\EstudianteController;
 use App\Http\Controllers\Api\EstudianteMateriaController;
 use App\Http\Controllers\Api\LicenciaController;
 use App\Http\Controllers\Api\MateriaController;
+
+use App\Http\Controllers\Api\UserController; //para la autentificacion
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+/*
+Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
+
+Route::group(['middleware' => ["auth:sanctum"]], function(){
+    //rutas
+    Route::get('user-profile', [UserController::class, 'userProfile']);
+    Route::get('logout', [UserController::class, 'logout']);
+
+
+    Route::get('/curso',[CursoController::class,'index']);
+    Route::post('/curso',[CursoController::class,'store']);
+    Route::get('/curso/{id}',[CursoController::class,'show']);
+    Route::put('/curso/{id}',[CursoController::class,'update']);
+    Route::delete('/curso/{id}',[CursoController::class,'destroy']);
+    
+});
+*/
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -39,6 +61,12 @@ Route::controller(LicenciaController::class)->group(function (){
     Route::put('/licencia/{id}','update');
     Route::post('/licencia/{id}','update');
     Route::delete('/licencia/{id}','destroy');
+
+    Route::get('/licencia/{rude}/{fecha}','registros');
+    Route::post('/licencia/guardar/{rude}','guardar');
+    Route::get('/licencia/mostrar/{rude}','mostrar');
+    Route::post('/licencia/actualizar/{id}','actualizar');
+    Route::delete('/licencia/eliminar/{rude}','eliminar');
 });
 
 Route::controller(AsistenciaController::class)->group(function (){

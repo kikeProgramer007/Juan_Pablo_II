@@ -1,92 +1,54 @@
-// ignore_for_file: file_names
 
-import 'package:flutter/material.dart';
-import 'package:apk/Services/apiStatic.dart';
 
-import 'package:apk/Models/errorMsg.dart';
 import 'package:apk/Views/licencia/licencia_page.dart';
-import 'package:apk/Models/licencia.dart';
+import 'package:apk/Views/widget/navigation_drawer.dart';
+import 'package:flutter/material.dart';
 
 
-
-class InputLicencia extends StatefulWidget { 
-  final Licencia licencia;
-  final String rude;
-  final String fecha;
-
-  const InputLicencia({Key? key, required this.licencia, required this.rude, required this.fecha, }) : super(key: key);
-  
-  @override
-  State<InputLicencia> createState() => _InputLicenciaState();
-}
-
-class _InputLicenciaState extends State<InputLicencia> {
-  final _formkey = GlobalKey<FormState>();
-  late TextEditingController asunto,justificacion, fecha;
-
-  late int idEstudiante = 0;
-  late int idLicen = 0;
-  String _fecha  = '';
-
-  bool _isupdate = false;
-  // ignore: unused_field
-  bool _validate = false;
-  bool _success = false;
- // late String _activo = '0';
-  late ErrorMSG response;
-
+class VerificarEstudiante extends StatefulWidget {
+   
+  const VerificarEstudiante({Key? key}) : super(key: key);
  
-
-//FUNCION SUBMIT
-void submit() async {
-  if (_formkey.currentState!.validate()) {
-    _formkey.currentState!.save();
-    var params ={
-      'asunto' : asunto.text.toString(),
-      'justificacion' : justificacion.text.toString(),
-      'fecha' : fecha.text.toString(),
-      //'activo' : _activo,
-      'id_estudiante' : idEstudiante.toString(),
-    };
-    response = await ApiStatic.saveLicencia(widget.rude, params);
-    _success= response.success;
-    final snackBar = SnackBar(content: Text(response.message),backgroundColor: Colors.black,);
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    if (_success) {
-
-      Navigator.of(context).pushReplacement( MaterialPageRoute(
-        builder: (BuildContext context) =>  LicenciaPage(rude: widget.rude, fecha: widget.fecha)
-      ));
-      //  Navigator.pop(context, MaterialPageRoute(builder: (context)=>  LicenciaPage(rude: widget.rude, fecha: widget.fecha)));
-    }
-  } else {
-    _validate =true;
-  }
+  @override
+  State<VerificarEstudiante> createState() => _VerificarEstudianteState();
 }
+
+class _VerificarEstudianteState extends State<VerificarEstudiante> {
+  final _formkey = GlobalKey<FormState>();
+  late TextEditingController rude;
+  late TextEditingController fecha;
+  String _fecha  = '';
 
 @override
   void initState() {
-    asunto= TextEditingController();
-    justificacion= TextEditingController();
+    rude = TextEditingController();
     fecha = TextEditingController();
-
-    if(widget.licencia.idEstudiante != 0){
-       idLicen = widget.licencia.id;
-       asunto= TextEditingController(text: widget.licencia.asunto);
-       justificacion= TextEditingController(text: widget.licencia.justificacion);
-       fecha = TextEditingController(text: widget.licencia.fecha);
-       idEstudiante = widget.licencia.idEstudiante;
-       //_activo = widget.licencia.activo.toString();
-       _isupdate = true;
-    }
     super.initState();
   }
+
+  //FUNCION SUBMIT
+  void submit() async {
+    if (_formkey.currentState!.validate()) {
+      _formkey.currentState!.save();
+      String rudenro= rude.text;
+      String fechanac= fecha.text;
+      if (rudenro!= '') {
+          Navigator.of(context).push( MaterialPageRoute(
+        builder: (BuildContext context) =>  LicenciaPage(rude: rudenro.toString(), fecha: fechanac.toString()) //REDIRECIONAR
+      ));
+      } 
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawer(),//BOTON ND
       appBar: AppBar(
-        title: _isupdate ? Text(widget.licencia.asunto) : const Text('Guardar datos'),
+        title:const Text('Ver Mis Licencias'),
+        centerTitle: true,
         backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
@@ -100,30 +62,16 @@ void submit() async {
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
-                    controller: asunto,
-                    validator: (u) => u == "" ? "Por favor, ingrese el asunto" :null,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.perm_identity),
-                      hintText: 'Coloque su asunto',
-                      labelText: 'Asunto',
-                    ),
-                  ),
-                ),
                 
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: TextFormField(
-                    controller: justificacion,
-                    textCapitalization: TextCapitalization.sentences,
-                    validator: (u) => u == "" ? "Por favor, ingrese la justificación" :null,
+                    controller: rude,
+                    validator: (u) => u == "" ? "Por favor, ingrese su nro rude" :null,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.perm_identity),
-                      hintText: 'Justifique su solicitud',
-                      labelText: 'Justificación',
+                      hintText: 'Coloque su número rude',
+                      labelText: 'Rude',
                     ),
                   ),
                 ),
-          
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: TextFormField(
@@ -133,8 +81,8 @@ void submit() async {
                     keyboardType: TextInputType.datetime,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.calendar_today),
-                      hintText: 'Escriba la fecha actual',
-                      labelText: 'fecha',
+                      hintText: 'Escriba la fecha de nacimiento',
+                      labelText: 'fecha nacimiento',
                     ),
                     onTap: (){
                       FocusScope.of(context).requestFocus( FocusNode());
@@ -142,20 +90,18 @@ void submit() async {
                     },
                   ),
                 ),
-          
                 const Divider(),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/2,
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: RaisedButton(
                     color: Colors.black,
                     child: const Text(
-                      'Guardar',
+                      'Ir a mis licencias',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: (){
-                      //submit
                       submit();
                     },
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -166,15 +112,17 @@ void submit() async {
           ),
         )
       ),
+
     );
   }
+
 
     _selectDate(BuildContext context) async {
 
     DateTime? picked = await showDatePicker(
       context: context, 
       initialDate:  DateTime.now(),
-      firstDate:  DateTime(2018),//fecha minima
+      firstDate:  DateTime(1992),//fecha minima
       lastDate:  DateTime(2025),//fecha maxima
       // locale: const Locale('es', 'ES')
       builder: (context, child) {
@@ -213,4 +161,5 @@ void submit() async {
     }
     
   }
+  
 }

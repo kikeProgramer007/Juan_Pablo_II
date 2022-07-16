@@ -1,10 +1,10 @@
 
 FUENTES DE AYUDA:
-https://laravel.com/docs/5.0/schema		<-- TYPO DE VAR EN MIGRAATIONS
-https://laravel.com/docs/8.x/migrations		<-- RELACIONES DE TABLAS
-https://laravel.com/docs/8.x/eloquent-relationships <--TIPO DE RACIONES
+https://laravel.com/docs/5.0/schema				<-- TYPO DE VAR EN MIGRAATIONS
+https://laravel.com/docs/8.x/migrations				<-- RELACIONES DE TABLAS
+https://laravel.com/docs/8.x/eloquent-relationships 		<--TIPO DE RACIONES
 https://bluuweb.github.io/tutorial-laravel/db-relacional/#restricciones-base-de-datos 
-
+https://styde.net/laravel-6-doc-base-de-datos-migraciones/	<-- TYPO DE DATOS EN MIGRAATIONS
 VALIDAR LARAVEL 8:https://8bityard.com/how-to-validate-api-in-laravel/
 G
 ======================================================================================================
@@ -113,10 +113,6 @@ PASO 3:
         });
     
 
-
-
-
-
     FUENTE:https://laravel.com/docs/7.x/migrations
 
 ===============================================================================================================================================
@@ -146,7 +142,7 @@ PASO 3:
 ===============================================================================================================================================
 
 > php artisan make:model Categoria -mcsf   	<-- CREAR MODELO, MIGRACION, SEEDER Y FACTORY 
-> php artisan make:model Categoria -mcs   	<-- CREAR MODELO, MIGRACION Y SEEDER
+> php artisan make:model Categoria -mcs   	<-- CREAR MODELO, MIGRACION,CONTROLLER Y SEEDER
 > php artisan make:model Categoria -a		<-- CREAR MODELO, MIGRACION, SEEDER Y FACTORY, TODO COMPLETO
 
 
@@ -166,7 +162,7 @@ PASO 3:
 
 > php artisan migrate:status				<--Para ver el estatus de cada migración
 
-> php artisan make:migration create_categories_table 	<--Para crear una migración
+> php artisan make:migration create_categories_table 		<--Para crear una migración
 > php artisan make:migration create_estudiante_materia_table 	<--Para crear una migración
 
 

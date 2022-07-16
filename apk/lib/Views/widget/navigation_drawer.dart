@@ -1,10 +1,10 @@
 import 'package:apk/Views/aviso/aviso_page.dart';
 import 'package:apk/Views/curso/cursos_page.dart';
 import 'package:apk/Views/falta/input_nota.dart';
+import 'package:apk/Views/licencia/verificar_estudiante.dart';
 import 'package:apk/Views/materia/input_materias.dart';
 import 'package:apk/Views/notas/input_nota.dart';
 import 'package:flutter/material.dart';
-import 'package:apk/Views/licencia/licencia_page.dart';
 import 'package:apk/Views/widget/drawer_item.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -82,7 +82,7 @@ class NavigationDrawer extends StatelessWidget {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const CursosPage()));
         break;
       case 2:
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LicenciaPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const VerificarEstudiante()));
         break;
       case 3:
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const InputFalta()));

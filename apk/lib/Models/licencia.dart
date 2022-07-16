@@ -7,6 +7,9 @@ class Licencia {
       required  this.fecha,
       required  this.activo,
       required  this.idEstudiante,
+      required  this.nombre,
+      required  this.apellidoPaterno,
+      required  this.apellidoMaterno
     });
 
     int id;
@@ -15,6 +18,9 @@ class Licencia {
     String fecha;
     int activo;
     int idEstudiante;
+    String nombre;
+    String apellidoPaterno;
+    String apellidoMaterno;
    
 
     factory Licencia.fromJson(Map<String, dynamic> json) => Licencia(
@@ -23,7 +29,10 @@ class Licencia {
         justificacion: json["justificacion"],
         fecha: (json["fecha"]).toString(),
         activo: json["activo"],
-        idEstudiante: json["id_estudiante"]
+        idEstudiante: json["id_estudiante"],
+        nombre: json["nombre"],
+        apellidoPaterno: json["apellido_paterno"],
+        apellidoMaterno: json["apellido_materno"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -32,6 +41,9 @@ class Licencia {
         "justificacion": justificacion,
         "fecha": fecha,
         "activo": activo,
-        "id_estudiante": idEstudiante
+        "id_estudiante": idEstudiante,
+        "nombre": nombre,
+        "apellido_paterno": apellidoPaterno,
+        "apellido_materno": apellidoMaterno,
     };
 }

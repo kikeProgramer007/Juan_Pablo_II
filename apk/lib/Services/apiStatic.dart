@@ -15,19 +15,22 @@ import 'package:apk/Models/estudiante.dart';
 
 
 class ApiStatic {
-  // static const host='http://192.168.0.10/juanpabloii/api/public';
- static const host='http://34.134.235.85';
+   static const host='http://192.168.18.1/juanpabloii/api/public';
+//  static const host='http://34.134.235.85';
 
   static const _token = "14|qLACXYpMaayjFVeTKoHmMc81j3vYahiPs1poTAZ2";
   static gertHost(){
     return host;
   }
 
-  static Future<List<Licencia>> getLicencia() async {
+  static Future<List<Licencia>> getLicencia(rude,fecha) async {
     try {
-      final response = await http.get(Uri.parse("$host/api/licencia"),
+      // final response = await http.get(Uri.parse("$host/api/licencia/"),
+      final response = await http.get(Uri.parse("$host/api/licencia/"+rude.toString()+"/"+fecha.toString()),
+    
       headers: {'Authorization' : 'Bearer '+_token},
       );
+
       if (response.statusCode == 200) {//si hay respuesta
         var json = jsonDecode(response.body);
         final parse = json['data'].cast<Map<String, dynamic>>();
@@ -35,6 +38,7 @@ class ApiStatic {
       }else{
           return [];
       }
+       
     } catch (e) {
       return [];
     }
@@ -67,20 +71,21 @@ class ApiStatic {
        var url = Uri.parse('$host/api/licencia');  //GUARDAR DATOS NUEVO
        var method='';
         if (id != 0) {
-          url= Uri.parse('$host/api/licencia/'+id.toString());//ACTUALIZAR DATOS
+          url= Uri.parse('$host/api/licencia/guardar/'+id.toString());//ACTUALIZAR DATOS
           method = 'POST';
         }else{
-         url = Uri.parse('$host/api/licencia');
+        //  url = Uri.parse('$host/api/licencia');
+          url = Uri.parse('$host/api/licencia/guardar/'+id);//parametro rude
           method = 'POST';
         }
-        //print(url); print(method);
+        //  print(url); print(method);
        
         var request = http.MultipartRequest(method, url);
         request.fields['asunto'] = licencia['asunto'];
         request.fields['justificacion'] = licencia['justificacion'];
         request.fields['fecha'] = licencia['fecha'];
        // request.fields['activo'] = licencia['activo'];
-        request.fields['id_estudiante'] = licencia['id_estudiante'];
+        // request.fields['id_estudiante'] = licencia['id_estudiante'];
         request.headers.addAll({
           'Authorization' : 'Bearer '+_token,
         });

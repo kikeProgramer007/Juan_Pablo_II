@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
+import 'package:apk/Views/widget/navigation_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:apk/Services/apiStatic.dart';
 
-import 'package:apk/Views/widget/navigation_drawer.dart';
 import 'package:apk/Models/licencia.dart';
 import 'package:apk/Views/licencia/detalleLicenciaPage.dart';
 import 'package:apk/Views/licencia/inputLicencia.dart';
@@ -11,7 +11,9 @@ import 'package:apk/Views/licencia/inputLicencia.dart';
 import 'package:apk/Models/errorMsg.dart';
 
 class LicenciaPage extends StatefulWidget {
-  const LicenciaPage({Key? key}) : super(key: key);
+  const LicenciaPage({Key? key,required this.rude,required this.fecha}) : super(key: key);
+  final String rude;
+  final String fecha;
 
   @override
   State<LicenciaPage> createState() => _LicenciaPageState();
@@ -21,12 +23,13 @@ class _LicenciaPageState extends State<LicenciaPage> {
 
   late ErrorMSG response;
 
+
   void deleteLicencia(id) async {
     response = await ApiStatic.deleteLicencia(id);
     final snackBar = SnackBar(content: Text(response.message));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if(response.message=='success'){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LicenciaPage()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>  LicenciaPage(rude: widget.rude, fecha:widget.fecha)));
     }
   }
 
@@ -41,7 +44,7 @@ class _LicenciaPageState extends State<LicenciaPage> {
       ),
       
       body: FutureBuilder<List<Licencia>>(
-          future: ApiStatic.getLicencia(),
+          future: ApiStatic.getLicencia(widget.rude,widget.fecha),
           builder: (context, snapshot){
             if (snapshot.connectionState==ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator(color: Colors.black,));
@@ -90,7 +93,7 @@ class _LicenciaPageState extends State<LicenciaPage> {
                                   GestureDetector(
                                     onTap: (){
                                       Navigator.of(context).push( MaterialPageRoute(//new MaterialP..s
-                                        builder: (BuildContext context) => InputLicencia(licencia: listLicencia[index])
+                                        builder: (BuildContext context) => InputLicencia(licencia: listLicencia[index],rude: widget.rude,fecha:widget.fecha)
                                         ));
                                     },
                                     child: const Icon(Icons.edit, color: Colors.orange,),
@@ -129,7 +132,11 @@ class _LicenciaPageState extends State<LicenciaPage> {
             fecha: '',
             activo: 0,
             idEstudiante: 0,
-          ))));
+            nombre: '',
+            apellidoPaterno: '',
+            apellidoMaterno: '',
+
+          ), rude: widget.rude,fecha: widget.fecha)));
         },
       ),
    

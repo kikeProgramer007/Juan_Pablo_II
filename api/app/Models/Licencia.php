@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Licencia extends Model
 {
     use HasFactory;
+    protected $table = "licencias";
     protected $fillable = ['asunto','justificacion','fecha','activo','id_estudiante'];
     public $timestamps = false;
       public function estudiantes()

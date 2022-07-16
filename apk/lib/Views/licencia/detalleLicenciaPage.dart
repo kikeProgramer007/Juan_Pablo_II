@@ -37,7 +37,7 @@ class _DetalleLicenciaPageState extends State<DetalleLicenciaPage> {
                   colors: [ Color.fromARGB(255, 0, 0, 0),  Color.fromARGB(255, 0, 0, 0)],
                 ),
               ),
-              child: Text(widget.licencia.asunto, style: const TextStyle(color: Colors.white),),
+              child: Text("Asunto: "+widget.licencia.asunto, style: const TextStyle(color: Colors.white),),
             ),
 
             Container(
@@ -49,7 +49,19 @@ class _DetalleLicenciaPageState extends State<DetalleLicenciaPage> {
                   colors: [ Color.fromARGB(255, 238, 238, 238),  Color.fromARGB(255, 204, 205, 207)],
                 ),
               ),
-              child: Text(widget.licencia.justificacion, style: const TextStyle(color: Colors.black),),
+              child: Text("Justificación: "+widget.licencia.justificacion, style: const TextStyle(color: Colors.black),),
+            ),
+
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: const  BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [ Color.fromARGB(255, 238, 238, 238),  Color.fromARGB(255, 204, 205, 207)],
+                ),
+              ),
+              child: Text("Nombre: "+widget.licencia.nombre+" "+widget.licencia.apellidoPaterno+" "+widget.licencia.apellidoMaterno, style: const TextStyle(color: Colors.black),),
             ),
 
             Container(
@@ -57,7 +69,7 @@ class _DetalleLicenciaPageState extends State<DetalleLicenciaPage> {
               color: Colors.lightBlue,
               width: double.infinity,
               height: double.maxFinite,
-              child: Text (widget.licencia.fecha),
+              child: Text ("Fecha: "+widget.licencia.fecha),
             )
 
           ],
