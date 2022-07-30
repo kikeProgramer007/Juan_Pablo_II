@@ -15,8 +15,8 @@ import 'package:apk/Models/estudiante.dart';
 
 
 class ApiStatic {
-   static const host='http://192.168.18.1/juanpabloii/api/public';
-//  static const host='http://34.134.235.85';
+    static const host='http://192.168.0.15/juanpabloii/api/public';
+  // static const host='http://18.207.244.104';
 
   static const _token = "14|qLACXYpMaayjFVeTKoHmMc81j3vYahiPs1poTAZ2";
   static gertHost(){
@@ -27,7 +27,6 @@ class ApiStatic {
     try {
       // final response = await http.get(Uri.parse("$host/api/licencia/"),
       final response = await http.get(Uri.parse("$host/api/licencia/"+rude.toString()+"/"+fecha.toString()),
-    
       headers: {'Authorization' : 'Bearer '+_token},
       );
 
@@ -36,11 +35,65 @@ class ApiStatic {
         final parse = json['data'].cast<Map<String, dynamic>>();
         return parse.map<Licencia>((json) =>Licencia.fromJson(json)).toList();
       }else{
+          print("staatus 405s");
           return [];
       }
        
     } catch (e) {
       return [];
+    }
+  }
+
+  static Future<ErrorMSG> milicencia(rude,fecha) async{
+    try {
+      var response = await http.get(Uri.parse("$host/api/licencia/"+rude.toString()+"/"+fecha.toString()),
+      headers: {'Authorization' : 'Bearer '+_token},
+      );
+      
+      var json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+          return ErrorMSG(success: json['success'], message: json['message']);
+      } else {
+        return ErrorMSG(success: false, message: json['message']);
+      }
+    } catch (e) {
+      ErrorMSG responseRequest = ErrorMSG(success: false, message: 'ERROR caught: $e');
+      return responseRequest;
+    }
+  }
+
+    static Future<ErrorMSG> validarrude(rude) async{
+    try {
+        final response = await http.get(Uri.parse("$host/api/nota/"+rude.toString()),
+          headers: {'Authorization' : 'Bearer '+_token},
+      );
+      
+      var json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+          return ErrorMSG(success: json['success'], message: json['message']);
+      } else {
+        return ErrorMSG(success: false, message: json['message']);
+      }
+    } catch (e) {
+      ErrorMSG responseRequest = ErrorMSG(success: false, message: 'ERROR caught: $e');
+      return responseRequest;
+    }
+  }
+    static Future<ErrorMSG> validarfalta(rude) async{
+    try {
+          final response = await http.get(Uri.parse("$host/api/faltas/"+rude.toString()),
+              headers: {'Authorization' : 'Bearer '+_token},
+      );
+      
+      var json = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+          return ErrorMSG(success: json['success'], message: json['message']);
+      } else {
+        return ErrorMSG(success: false, message: json['message']);
+      }
+    } catch (e) {
+      ErrorMSG responseRequest = ErrorMSG(success: false, message: 'ERROR caught: $e');
+      return responseRequest;
     }
   }
 
@@ -64,18 +117,21 @@ class ApiStatic {
     }
   }
 
+
+
   //FUNCION PARA GUARDAR DATOS:
 
-    static Future<ErrorMSG> saveLicencia(id,licencia) async{
+    static Future<ErrorMSG> saveLicencia(id,rude,licencia) async{
       try {
        var url = Uri.parse('$host/api/licencia');  //GUARDAR DATOS NUEVO
        var method='';
+      
         if (id != 0) {
-          url= Uri.parse('$host/api/licencia/guardar/'+id.toString());//ACTUALIZAR DATOS
+          url= Uri.parse('$host/api/licencia/actualizar/'+id.toString());//ACTUALIZAR DATOS
           method = 'POST';
         }else{
         //  url = Uri.parse('$host/api/licencia');
-          url = Uri.parse('$host/api/licencia/guardar/'+id);//parametro rude
+          url = Uri.parse('$host/api/licencia/guardar/'+rude);//parametro rude
           method = 'POST';
         }
         //  print(url); print(method);
@@ -154,13 +210,12 @@ class ApiStatic {
             );
           if (response.statusCode == 200) {//si hay respuesta
             var json = jsonDecode(response.body);
-           final parse = json.cast<Map<String, dynamic>>();
+           final parse = json['data'].cast<Map<String, dynamic>>();
             // final parse = json['data'].cast<Map<String, dynamic>>();
             return parse.map<Notas>((json) =>Notas.fromJson(json)).toList();
           }else{
             return [];
           }
-        
       } catch (e) {
         return [];
       }
@@ -213,7 +268,7 @@ class ApiStatic {
             );
           if (response.statusCode == 200) {//si hay respuesta
             var json = jsonDecode(response.body);
-            final parse = json.cast<Map<String, dynamic>>();
+            final parse = json['data'].cast<Map<String, dynamic>>();
             // print(response.statusCode);
             return parse.map<Faltas>((json) =>Faltas.fromJson(json)).toList();
           }else{

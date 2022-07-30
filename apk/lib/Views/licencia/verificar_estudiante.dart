@@ -1,5 +1,7 @@
 
 
+import 'package:apk/Models/errorMsg.dart';
+import 'package:apk/Services/apiStatic.dart';
 import 'package:apk/Views/licencia/licencia_page.dart';
 import 'package:apk/Views/widget/navigation_drawer.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,8 @@ class _VerificarEstudianteState extends State<VerificarEstudiante> {
   late TextEditingController rude;
   late TextEditingController fecha;
   String _fecha  = '';
-
+  late ErrorMSG response;
+  bool _success = false;
 @override
   void initState() {
     rude = TextEditingController();
@@ -32,11 +35,22 @@ class _VerificarEstudianteState extends State<VerificarEstudiante> {
       _formkey.currentState!.save();
       String rudenro= rude.text;
       String fechanac= fecha.text;
-      if (rudenro!= '') {
-          Navigator.of(context).push( MaterialPageRoute(
-        builder: (BuildContext context) =>  LicenciaPage(rude: rudenro.toString(), fecha: fechanac.toString()) //REDIRECIONAR
-      ));
-      } 
+
+      response = await ApiStatic.milicencia(rudenro,fechanac);
+      _success= response.success;
+       if (_success) {
+          if (rudenro!= '') {
+            Navigator.of(context).push( MaterialPageRoute(
+              builder: (BuildContext context) =>  LicenciaPage(rude: rudenro.toString(), fecha: fechanac.toString()) //REDIRECIONAR
+            ));
+            final snackBar = SnackBar(content: Text(response.message),backgroundColor: Colors.black,);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+      }else{
+         final snackBar = SnackBar(content: Text(response.message),backgroundColor: Colors.red,);
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+
     }
 
   }

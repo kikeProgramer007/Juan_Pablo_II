@@ -61,14 +61,28 @@ class EstudianteMateriaController extends Controller
             ->orderBy('estudiante_materia.promedio_anual','asc')
             ->get(); //DEVUELDE TODOS LOS DATOS
             // ->paginate(20);
-           
+            $estudiante = Estudiante::where("codigo_rude","=", $rude)->get()->first();
             //->toSql();  //DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
-            if (count($notas) > 0) {//SI NO ESTA VACIO
-                return $notas;
+            if ($estudiante) {//SI NO ESTA VACIO
+                
+
+                if (count($notas) >0) {//SI NO ESTA VACIO
+                    return [
+                        'success' => true,
+                        'message' => 'Estudiante: '.$estudiante['nombre'].' '.$estudiante['apellido_paterno'].' '.$estudiante['apellido_materno'],
+                         'data' => $notas
+                    ];
+                }else{
+                    return [
+                        'success' => false,
+                        'message' => 'Este registro no tiene ninguna nota',
+                    ];
+                }
+
             }else{
                 return [
                     'success' => false,
-                    'message' => 'No hay regitros',
+                    'message' => 'Rude no existente',
                 ];
             }
         }else{
@@ -93,8 +107,9 @@ class EstudianteMateriaController extends Controller
             //DEVUELDE TODOS LOS DATOS
             //  ->paginate(20);
             //->toSql(); DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
-            if (count($materias) > 0) {//SI NO ESTA VACIO
-                return $materias;
+           
+            if (count($materias) >= 0) {//SI NO ESTA VACIO
+                return  $materias;
             }else{
                 return [
                     'success' => false,

@@ -29,12 +29,12 @@ class NavigationDrawer extends StatelessWidget {
                 icon: Icons.notifications_none_sharp,
                 onPressed: ()=> onItemPressed(context, index: 0),
               ),
-              const SizedBox(height: 30,),
-              DrawerItem(
-                name: 'Cursos',
-                icon: Icons.pin_invoke_rounded,
-                onPressed: ()=> onItemPressed(context, index: 1),
-              ),
+              // const SizedBox(height: 30,),
+              // DrawerItem(
+              //   name: 'Cursos',
+              //   icon: Icons.pin_invoke_rounded,
+              //   onPressed: ()=> onItemPressed(context, index: 1),
+              // ),
               const SizedBox(height: 30,),
               DrawerItem(
                 name: 'Licencia',
@@ -78,9 +78,9 @@ class NavigationDrawer extends StatelessWidget {
       case 0:
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const AvisoPage()));
         break;
-      case 1:
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const CursosPage()));
-        break;
+      // case 1:
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const CursosPage()));
+      //   break;
       case 2:
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const VerificarEstudiante()));
         break;

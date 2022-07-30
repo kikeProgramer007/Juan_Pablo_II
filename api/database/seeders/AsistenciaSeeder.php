@@ -31,12 +31,12 @@ class AsistenciaSeeder extends Seeder
         ]);
         DB::table('asistencias')->insert([
             'fecha' => '2022-06-04',
-            'estado' => 'Falta',
+            'estado' => 'Asiste',
             'id_estudiante' => 1
         ]);
         DB::table('asistencias')->insert([
             'fecha' => '2022-06-05',
-            'estado' => 'Falta',
+            'estado' => 'Asiste',
             'id_estudiante' => 1
         ]);
         DB::table('asistencias')->insert([

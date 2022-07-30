@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Asistencia;
+use App\Models\Estudiante;
 use Illuminate\Http\Request;
 
 class AsistenciaController extends Controller
@@ -57,6 +58,12 @@ class AsistenciaController extends Controller
         AND asistencias.estado= 'Falta'*/
 
         if(($rude)){
+            if (!is_numeric($rude)) {
+                return [
+                    'success' => false,
+                    'message' => 'inserte un número',
+                ];
+            }
             $faltas=Asistencia::select(
                 'asistencias.fecha',
                 'asistencias.estado'
@@ -64,16 +71,29 @@ class AsistenciaController extends Controller
             ->join('estudiantes','asistencias.id_estudiante','=','estudiantes.id')
             ->where('estudiantes.codigo_rude','=',$rude)->where('asistencias.estado','=','Falta')
             ->get();
-            //->get(); //DEVUELDE TODOS LOS DATOS
-            //->toSql();  //DEVUELVE LA CONSULTA REALIZADA PERO EN COMANDOS
-            if (count($faltas) > 0) {//SI NO ESTA VACIO
-                return $faltas;
+
+            $estudiante = Estudiante::where("codigo_rude","=", $rude)->get()->first();
+            if ($estudiante) {
+                if (count($faltas) > 0) {//SI NO ESTA VACIO
+                    return [
+                        'success' => true,
+                        'message' => 'Estudiante: '.$estudiante['nombre'].' '.$estudiante['apellido_paterno'].' '.$estudiante['apellido_materno'],
+                         'data' => $faltas
+                    ];
+                }else{
+                    return [
+                        'success' => false,
+                        'message' => 'Este estudiante  no tiene faltas',
+                    ];
+                }
             }else{
                 return [
                     'success' => false,
-                    'message' => 'No hay regitros',
+                    'message' => 'Rude no existente',
                 ];
             }
+
+     
         }else{
             return [
                 'success' => false,

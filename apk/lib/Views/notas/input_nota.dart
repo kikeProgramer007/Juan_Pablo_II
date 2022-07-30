@@ -1,4 +1,6 @@
 
+import 'package:apk/Models/errorMsg.dart';
+import 'package:apk/Services/apiStatic.dart';
 import 'package:apk/Views/notas/nota_page.dart';
 import 'package:apk/Views/widget/navigation_drawer.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,9 @@ class InputNota extends StatefulWidget {
 class _InputNotaState extends State<InputNota> {
   final _formkey = GlobalKey<FormState>();
   late TextEditingController rude;
-
+  late ErrorMSG response;
+  bool _success = false;
+  
 @override
   void initState() {
     rude = TextEditingController();
@@ -27,13 +31,23 @@ class _InputNotaState extends State<InputNota> {
     if (_formkey.currentState!.validate()) {
       _formkey.currentState!.save();
       String rudenro= rude.text;
-      if (rudenro!= '') {
-          Navigator.of(context).push( MaterialPageRoute(
-        builder: (BuildContext context) =>  NotaPage(rude: rudenro,) //REDIRECIONAR
-      ));
-      } 
-    }
 
+      response = await ApiStatic.validarrude(rudenro);
+      _success= response.success;
+       if (_success) {
+          if (rudenro!= '') {
+            Navigator.of(context).push( MaterialPageRoute(
+              builder: (BuildContext context) =>  NotaPage(rude: rudenro,) //REDIRECIONAR
+            ));
+            final snackBar = SnackBar(content: Text(response.message),backgroundColor: Colors.black,);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+      }else{
+         final snackBar = SnackBar(content: Text(response.message),backgroundColor: Colors.red,);
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+
+    }
   }
 
 

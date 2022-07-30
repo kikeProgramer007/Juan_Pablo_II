@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Estudiante;
 use App\Models\Licencia;
+use Hamcrest\Type\IsNumeric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -148,7 +149,12 @@ class LicenciaController extends Controller
     public function registros($rude,$fecha)
     {
         if((isset($rude) && isset($fecha))){
-
+            if (!is_numeric($rude)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'El rude debe ser númerico',
+                ],404);
+            }
             $licencia=Licencia::select(
                 'licencias.id',
                 'licencias.asunto',
@@ -163,23 +169,37 @@ class LicenciaController extends Controller
             ->join('estudiantes','licencias.id_estudiante','=','estudiantes.id')
             ->where('estudiantes.codigo_rude','=',$rude)->where('estudiantes.fecha_nacimiento','=',$fecha)
             ->orderBy('licencias.fecha','desc')
-            ->paginate(50);
-           
-            if (count($licencia) > 0) {//SI NO ESTA VACIO
-        
-                return response()->json($licencia);
+            ->get(50);
+
+            $estudiante = Estudiante::where("codigo_rude","=", $rude)->where("fecha_nacimiento","=", $fecha)->get()->first();
+            if ($estudiante) {
+                if (count($licencia) >0) {//SI NO ESTA VACIO
+                    return [
+                        'success' => true,
+                        'message' => 'Estudiante: '.$estudiante['nombre'].' '.$estudiante['apellido_paterno'].' '.$estudiante['apellido_materno'],
+                         'data' => $licencia
+                    ];
+                }else{
+                    return [
+                        'success' => true,
+                        'message' => 'Este registro no tiene ninguna licencia',
+                        'data' => $licencia
+                    ];
+                }
 
             }else{
                 return [
                     'success' => false,
-                    'message' => 'No hay regitros',
+                    'message' => 'El Rude o la Fecha no coinciden',
+                     'data' => $licencia
                 ];
             }
+
         }else{
-            return [
+            return response()->json([
                 'success' => false,
-                'message' => 'inserte su rude y fecha nac.',
-            ];
+                'message' => 'ingreselos datos',
+            ],404);
         }
 
     }
@@ -232,12 +252,12 @@ class LicenciaController extends Controller
       }
     }
 
-    public function actualizar(Request $request, $id)
+    public function actualizar($id_licencia, Request $request)
     {
         $rules=array(
+            'asunto'  =>"required|min:2|max:30",
             'justificacion'  =>"required|min:2|max:150",
-            'fecha' =>"required|min:5|max:150",
-            'id_estudiante' =>"required",
+            'fecha' =>"required|min:5|max:150"
         );
         $validator=Validator::make($request->all(),$rules);
         if($validator->fails())
@@ -249,11 +269,10 @@ class LicenciaController extends Controller
             ];
         }
         else{
-        $data = Licencia::findOrFail($id);
+        $data = Licencia::findOrFail($id_licencia);
         $data->asunto = $request->asunto;
         $data->justificacion = $request->justificacion;
         $data->fecha = $request->fecha;
-        $data->id_estudiante = $request->id_estudiante;
         $result = $data->save();
 
         if($result){

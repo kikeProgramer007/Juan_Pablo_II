@@ -48,12 +48,11 @@ void submit() async {
       //'activo' : _activo,
       'id_estudiante' : idEstudiante.toString(),
     };
-    response = await ApiStatic.saveLicencia(widget.rude, params);
+    response = await ApiStatic.saveLicencia(idLicen,widget.rude, params);
     _success= response.success;
     final snackBar = SnackBar(content: Text(response.message),backgroundColor: Colors.black,);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (_success) {
-
       Navigator.of(context).pushReplacement( MaterialPageRoute(
         builder: (BuildContext context) =>  LicenciaPage(rude: widget.rude, fecha: widget.fecha)
       ));
